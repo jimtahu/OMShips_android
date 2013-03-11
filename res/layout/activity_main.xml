@@ -4,13 +4,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="android.app.ListFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+     <ListView android:id="@id/android:list"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="#FFFFFF"
+               android:drawSelectorOnTop="false"/>
+
+     <TextView
+         android:id="@id/android:empty"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:text="No data" />
 
 </RelativeLayout>
