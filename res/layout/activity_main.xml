@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
-<!--
+
     <fragment
         android:id="@+id/listFragment"
         android:name="android.support.v4.app.ListFragment"
@@ -14,5 +14,5 @@
         android:layout_alignParentTop="true"
         class="@string/title_activity_main"
         tools:layout="@android:layout/simple_list_item_1" />
--->
+
 </RelativeLayout>
