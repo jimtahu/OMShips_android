@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 			ListView rssList = (ListView) findViewById(R.id.newslist);
 			new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_news.php");
 		} catch (Exception e) {
-			Log.e("OMSHIPS", e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

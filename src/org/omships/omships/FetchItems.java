@@ -19,7 +19,7 @@ public class FetchItems extends AsyncTask<String,Integer,Integer> {
 	
 	@Override
 	protected Integer doInBackground(String... args) {
-		RSSReader rssReader = new RSSReader("http://www.omships.org/rss/omsi_news.php");
+		RSSReader rssReader = new RSSReader(args[0]);
 		try {
 			items = rssReader.getItems();
 		} catch (Exception e) {
