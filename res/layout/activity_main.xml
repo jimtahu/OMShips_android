@@ -5,14 +5,12 @@
     tools:context=".MainActivity" >
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="android.support.v4.app.ListFragment"
+        android:id="@+id/fragment1"
+        android:name="android.app.ListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        class="@string/title_activity_main"
-        tools:layout="@android:layout/simple_list_item_1" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
