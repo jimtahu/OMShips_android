@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-     <ListView android:id="@id/android:list"
+     <ListView android:id="@+id/newslist"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:background="#FFFFFF"
                android:drawSelectorOnTop="false"/>
 
      <TextView
-         android:id="@id/android:empty"
+         android:id="@+id/empty"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:text="No data" />
