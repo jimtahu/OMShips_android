@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -23,9 +24,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
-    android:name="com.google.android.maps.v2.API_KEY"
-    android:value="AIzaSyBxxW11cdBMN4TOFKqK1sihbZPtHocUHfI"/>
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBxxW11cdBMN4TOFKqK1sihbZPtHocUHfI" />
+
+        <activity
+            android:name="org.omships.omships.NewsItemView"
+            android:label="@string/title_activity_item_view"
+            android:parentActivityName="org.omships.omships.NewsFeedActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.omships.omships.NewsFeedActivity" />
+        </activity>
     </application>
 
 </manifest>

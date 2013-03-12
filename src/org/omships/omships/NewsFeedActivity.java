@@ -2,22 +2,23 @@ package org.omships.omships;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class NewsFeedActivity extends Activity {
-
 	
 	class NewsItemClicked implements OnItemClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> adaptor, View view,
 				int postion, long id) {
 			RSSItem item = (RSSItem) adaptor.getItemAtPosition(postion);
-			Toast.makeText(getApplicationContext(), item.toString(),Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(getApplicationContext(),NewsItemView.class);
+			intent.putExtra("feeditem",item);
+			startActivity(intent);
 		}
 	}//end class NewsItemClicked
 	@Override
