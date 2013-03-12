@@ -48,6 +48,23 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name="org.omships.omships.CamListActivity"
+            android:label="@string/title_activity_cam_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="org.omships.omships.CamraView"
+            android:label="@string/title_activity_camra_view"
+            android:parentActivityName="org.omships.omships.CamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.omships.omships.CamListActivity" />
+        </activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBxxW11cdBMN4TOFKqK1sihbZPtHocUHfI" />
