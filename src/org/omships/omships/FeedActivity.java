@@ -1,15 +1,15 @@
 package org.omships.omships;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.support.v4.app.FragmentActivity;
 
-public abstract class FeedActivity extends Activity {
+public abstract class FeedActivity extends FragmentActivity {
 	
 	abstract Feed[] getFeeds(); 
 	
