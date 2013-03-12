@@ -44,6 +44,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity
+		    android:name="org.omships.omships.CamListActivity"
+            android:label="@string/title_activity_cam_list" >
+        </activity>
+        <activity
+            android:name="org.omships.omships.CamraView"
+            android:label="@string/title_activity_camra_view"
+            android:parentActivityName="org.omships.omships.CamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.omships.omships.CamListActivity" />
+        </activity>
     </application>
 
 </manifest>

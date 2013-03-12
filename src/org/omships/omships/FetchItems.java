@@ -1,5 +1,6 @@
 package org.omships.omships;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -7,7 +8,7 @@ import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class FetchItems extends AsyncTask<String,Integer,Integer> {
+public class FetchItems extends AsyncTask<Feed,Integer,Integer> {
 	Context context;
 	ListView view;
 	List<RSSItem> items;
@@ -18,13 +19,17 @@ public class FetchItems extends AsyncTask<String,Integer,Integer> {
 	}
 	
 	@Override
-	protected Integer doInBackground(String... args) {
-		RSSReader rssReader = new RSSReader(args[0]);
-		try {
-			items = rssReader.getItems();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	protected Integer doInBackground(Feed... args) {
+		items = new ArrayList<RSSItem>();
+		for(Feed feed:args){
+			if(!feed.getType().equals("rss"))continue;
+			RSSReader rssReader = new RSSReader(feed.getUrl());
+			try {
+				items.addAll(rssReader.getItems());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}//end for feeds
 		return items.size();
 	}//end doInBackground
 	
