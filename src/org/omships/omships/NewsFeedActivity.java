@@ -2,16 +2,15 @@ package org.omships.omships;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class NewsFeedActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.feedlayout);
 		try {
 			ListView rssList = (ListView) findViewById(R.id.newslist);
 			new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_news.php");
