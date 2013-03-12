@@ -9,20 +9,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.Dialog;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
 
-public class MapActivity extends Activity {
+public class MapActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.maplayout);
 		int r=GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(
 						getApplicationContext());
@@ -32,6 +31,7 @@ public class MapActivity extends Activity {
 			d.show();
 			return;
 		}
+		setContentView(R.layout.maplayout);
 		GoogleMapOptions opt=new GoogleMapOptions();
 		opt.camera(new CameraPosition(new LatLng(0,0), 0.0f, 0.0f, 0.0f));
 		MapView mapview = new MapView(this, opt);
