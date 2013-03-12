@@ -1,21 +1,57 @@
 package org.omships.omships;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
 public class CamraView extends Activity {
-
+	WebCam camera;
+	ImageView photo;
+	
+	/**
+	 * creates new FetchImage (to be used on UI thread).
+	 */
+	private Runnable runUpdate = new Runnable() {
+		@Override
+		public void run() {
+			new FetchImage(photo).execute(camera.getUrl());
+		}
+	};
+	
+	/**
+	 * Runs update request on UI thread.
+	 */
+	protected void TimerClick(){
+		this.runOnUiThread(runUpdate);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camraviewlayout);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		camera=getIntent().getExtras().getParcelable("item");
+		TextView name = (TextView) findViewById(R.id.name);
+		name.setText(camera.name);
+		photo = (ImageView) findViewById(R.id.photo);
+		new FetchImage(photo).execute(camera.getUrl());
+		Timer updateTimer = new Timer();
+		updateTimer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				TimerClick();
+			}
+		}, camera.getUpdate(), camera.getUpdate());
 	}
 
 	/**
