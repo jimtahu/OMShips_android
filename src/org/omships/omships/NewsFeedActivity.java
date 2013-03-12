@@ -25,8 +25,11 @@ public class NewsFeedActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feedlayout);
+		Settings.loadConfig(getResources());
 		ListView rssList = (ListView) findViewById(R.id.newslist);
-		new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_news.php");
+		new FetchItems(this,rssList).execute(
+				Settings.getShip().getNews().get(0).getUrl()
+				);
 		rssList.setOnItemClickListener(new NewsItemClicked());
 	}
 
