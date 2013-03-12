@@ -19,8 +19,13 @@ public class NewsItemView extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		this.item = getIntent().getExtras().getParcelable("feeditem");
+		this.setTitle(this.item.getTitle());
 		TextView title = (TextView) findViewById(R.id.title);
 		title.setText(item.getTitle());
+		TextView description = (TextView) findViewById(R.id.description);
+		description.setText(item.getDescription());
+		TextView link = (TextView) findViewById(R.id.link);
+		link.setText(item.getLink());
 	}
 
 	/**

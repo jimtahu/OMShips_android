@@ -3,7 +3,7 @@ OMShips_android
 
 Android application for viewing information about the OMShipsLicensed under the zlib license.
 
-Copyright (c) 2013 OMShips
+Copyright (c) 2013 Operation Mobilisation
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
