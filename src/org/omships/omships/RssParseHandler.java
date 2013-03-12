@@ -1,6 +1,7 @@
 package org.omships.omships;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -75,6 +76,9 @@ public class RssParseHandler extends DefaultHandler {
     			if (currentItem != null)
                     currentItem.setDescription(new String(ch, start, length));
     			break;
+    		case date:
+    			if (currentItem != null)
+    				currentItem.setPubDate(new String(ch, start, length));
 		default:
 			break;
         }//end switch

@@ -1,6 +1,9 @@
 package org.omships.omships;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,6 +19,9 @@ public class RSSItem implements Parcelable{
 	private Date pubDate;
 	private String description;
 	
+	final static SimpleDateFormat format =
+			new SimpleDateFormat("EEE, dd MMM yyyy k:m:s",Locale.US);
+	
 	public RSSItem(){
 		this.title = "None";
 		this.link = "http://www.google.com";
@@ -26,7 +32,12 @@ public class RSSItem implements Parcelable{
 	public RSSItem(Parcel in){
 		this.title=in.readString();
 		this.link=in.readString();
-		this.pubDate=new Date(in.readString());
+		try {
+			this.pubDate=format.parse(in.readString());
+		} catch (ParseException e) {
+			this.pubDate = new Date();
+			e.printStackTrace();
+		}
 		this.description=in.readString();
 	}
 	
@@ -48,6 +59,13 @@ public class RSSItem implements Parcelable{
 	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
+	public void setPubDate(String date){
+		try {
+			this.pubDate = format.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -67,7 +85,7 @@ public class RSSItem implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(getTitle());
 		dest.writeString(getLink());
-		dest.writeString(getPubDate().toString());
+		dest.writeString(format.format(getPubDate()));
 		dest.writeString(getDescription());
 	}
 	
