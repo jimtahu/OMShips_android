@@ -28,7 +28,7 @@ public class NewsFeedActivity extends Activity {
 		Settings.loadConfig(getResources());
 		ListView rssList = (ListView) findViewById(R.id.newslist);
 		new FetchItems(this,rssList).execute(
-				Settings.getShip().getNews().get(0).getUrl()
+				Settings.getShip().getNews().toArray(new Feed[Settings.getShip().getNews().size()])
 				);
 		rssList.setOnItemClickListener(new NewsItemClicked());
 	}

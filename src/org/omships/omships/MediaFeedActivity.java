@@ -26,7 +26,9 @@ public class MediaFeedActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feedlayout);
 		ListView rssList = (ListView) findViewById(R.id.newslist);
-		new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_photos.php");
+		new FetchItems(this,rssList).execute(
+				Settings.getShip().getMedia().toArray(new Feed[Settings.getShip().getMedia().size()])
+				);
 		rssList.setOnItemClickListener(new NewsItemClicked());
 	}
 
