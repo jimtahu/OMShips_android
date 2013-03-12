@@ -3,20 +3,30 @@ package org.omships.omships;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class NewsFeedActivity extends Activity {
 
+	
+	class NewsItemClicked implements OnItemClickListener{
+		@Override
+		public void onItemClick(AdapterView<?> adaptor, View view,
+				int postion, long id) {
+			RSSItem item = (RSSItem) adaptor.getItemAtPosition(postion);
+			Toast.makeText(getApplicationContext(), item.toString(),Toast.LENGTH_LONG).show();
+		}
+	}//end class NewsItemClicked
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feedlayout);
-		try {
-			ListView rssList = (ListView) findViewById(R.id.newslist);
-			new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_news.php");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ListView rssList = (ListView) findViewById(R.id.newslist);
+		new FetchItems(this,rssList).execute("http://www.omships.org/rss/omsi_news.php");
+		rssList.setOnItemClickListener(new NewsItemClicked());
 	}
 
 	@Override
