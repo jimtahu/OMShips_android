@@ -18,7 +18,7 @@ public class MapActivity extends FragmentActivity {
 	
 	private void setUpMap() {
         daMap.addMarker(new MarkerOptions()
-        .position(new LatLng(0, 0))
+        .position(new LatLng(0,0))
         .title(Settings.getShip().getName()));
     }
 	
@@ -38,6 +38,7 @@ public class MapActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Settings.loadConfig(getResources());
 		setContentView(R.layout.maplayout);
 		setUpMapIfNeeded();
 	}
