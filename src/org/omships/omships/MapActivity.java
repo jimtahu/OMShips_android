@@ -1,62 +1,49 @@
 package org.omships.omships;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
-import android.app.Dialog;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 
+/**
+ * Shows the current ship on the map of the world.
+ * @author jimtahu
+ * Based on the basic map demo
+ */
 public class MapActivity extends FragmentActivity {
-
+	private GoogleMap daMap;
+	
+	private void setUpMap() {
+        daMap.addMarker(new MarkerOptions()
+        .position(new LatLng(0, 0))
+        .title(Settings.getShip().getName()));
+    }
+	
+	private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (daMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            daMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (daMap != null) {
+                setUpMap();
+            }
+        }
+    }
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		int r=GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(
-						getApplicationContext());
-		if(r!=ConnectionResult.SUCCESS){
-			Toast.makeText(getApplicationContext(), "No google services",Toast.LENGTH_SHORT).show();
-			Dialog d=GooglePlayServicesUtil.getErrorDialog(r,this,0);
-			d.show();
-			return;
-		}
 		setContentView(R.layout.maplayout);
-		GoogleMapOptions opt=new GoogleMapOptions();
-		opt.camera(new CameraPosition(new LatLng(0,0), 0.0f, 0.0f, 0.0f));
-		MapView mapview = new MapView(this, opt);
-		mapview.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				MapView mapview = (MapView)v;
-				GoogleMap map=mapview.getMap();
-				if(map==null){
-					Toast.makeText(getApplicationContext(), "No map!",Toast.LENGTH_SHORT).show();
-					return;
-				}
-				map.setMapType(GoogleMap.MAP_TYPE_NORMAL);	
-			}
-		});
-		LinearLayout frame = (LinearLayout) findViewById(R.id.mapframe);
-		frame.addView(mapview);
+		setUpMapIfNeeded();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.map, menu);
-		return true;
+	protected void onResume(){
+		super.onResume();
+		setUpMapIfNeeded();
 	}
-
-}
+}//end MapActivity
