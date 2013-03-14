@@ -17,7 +17,7 @@ public abstract class FeedActivity extends FragmentActivity {
 		ListView rssList = (ListView) findViewById(R.id.newslist);
 		new FetchItems(this,rssList).execute(getFeeds());
 		rssList.setOnItemClickListener(
-				new ItemClicked<RSSItem>(this,NewsItemView.class));
+				new ItemClicked<RSSItem>(this,ItemView.class));
 	}
 
 	@Override

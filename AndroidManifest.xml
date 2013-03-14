@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.omships.omships.NewsItemView"
+            android:name="org.omships.omships.ItemView"
             android:label="@string/title_activity_item_view"
             android:parentActivityName="org.omships.omships.NewsFeedActivity" >
             <meta-data
