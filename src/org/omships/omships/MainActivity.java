@@ -34,7 +34,7 @@ public class MainActivity extends FragmentActivity {
  
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.create(position + 1);
+        	return PageFragment.create(position + 1);
         }
         
         @Override
@@ -62,6 +62,7 @@ public class MainActivity extends FragmentActivity {
             args.putInt(ARG_PAGE, page);
             PageFragment fragment = new PageFragment();
             fragment.setArguments(args);
+            //fragment.getFragmentManager().findFragmentById(R.layout.activity_map);
             return fragment;
         }
  
