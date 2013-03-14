@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
  
 public class MainActivity extends FragmentActivity {
@@ -62,7 +63,7 @@ public class MainActivity extends FragmentActivity {
             args.putInt(ARG_PAGE, page);
             PageFragment fragment = new PageFragment();
             fragment.setArguments(args);
-            //fragment.getFragmentManager().findFragmentById(R.layout.activity_map);
+            //fragment.getFragmentManager().findFragmentById();
             return fragment;
         }
  
@@ -75,10 +76,17 @@ public class MainActivity extends FragmentActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_page, container, false);
-            TextView textView = (TextView) view;
-            textView.setText("Fragment #" + mPage);
-            return view;
+        	View view;
+            if(mPage == 4){
+            	view = inflater.inflate(R.layout.camlistlayout, container, false);
+            }
+        	//View view = inflater.inflate(R.layout.camlistlayout, container, false);
+            else{
+	            view = inflater.inflate(R.layout.fragment_page, container, false);
+            }
+            	//TextView textView = (TextView) view;
+            	//textView.setText("Fragment #" + mPage);
+	            return view;
         }
     }
 }
