@@ -41,6 +41,17 @@ public class RSSItem implements Parcelable{
 		this.description=in.readString();
 	}
 	
+	/**
+	 * Checks if the linked item appears to be an image.
+	 * @return
+	 */
+	public boolean isImage(){
+		if(this.getLink().endsWith(".jpg"))return true;
+		else if(this.getLink().endsWith(".jpeg"))return true;
+		else if(this.getLink().endsWith(".png"))return true;
+		else return false;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

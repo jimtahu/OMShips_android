@@ -28,7 +28,7 @@ public class ItemView extends Activity {
 		description.setText(item.getDescription());
 		WebView webpage = (WebView) findViewById(R.id.webpage);
 		webpage.loadUrl(item.getLink());
-		if(item.getLink().endsWith(".jpg")){
+		if(item.isImage()){
 			ImageView photo = (ImageView) findViewById(R.id.photo);
 			new FetchImage(photo).execute(item.getLink());
 			photo.setVisibility(View.VISIBLE);
