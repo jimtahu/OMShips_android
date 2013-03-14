@@ -27,14 +27,15 @@ public class ItemView extends Activity {
 		TextView description = (TextView) findViewById(R.id.description);
 		description.setText(item.getDescription());
 		WebView webpage = (WebView) findViewById(R.id.webpage);
-		webpage.loadUrl(item.getLink());
+		ImageView photo = (ImageView) findViewById(R.id.photo);
 		if(item.isImage()){
-			ImageView photo = (ImageView) findViewById(R.id.photo);
 			new FetchImage(photo).execute(item.getLink());
 			photo.setVisibility(View.VISIBLE);
 			photo.setContentDescription(item.getDescription());
 			webpage.setVisibility(View.GONE);
-		}
+		}else{
+			webpage.loadUrl(item.getLink());
+		}//end if image
 	}//end onCreate
 
 	/**
