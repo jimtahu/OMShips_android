@@ -42,7 +42,7 @@ public class Settings {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//end try-catch
-			new FetchConfig().execute("http://danielrothfus.com/config.xml");
+			//new FetchConfig().execute("http://danielrothfus.com/config.xml");
 		}//end if
 	}//end loadConfig
 	
