@@ -15,9 +15,9 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	Context context;
 	ListView view;
 	
-	public static void invalidate(String feed){
-		if(memo.containsKey(feed))
-			memo.remove(feed);
+	public static void invalidate(Feed feed){
+		if(memo.containsKey(feed.getUrl()))
+			memo.remove(feed.getUrl());
 	}//end invalidate
 	
 	
@@ -33,7 +33,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 			List<RSSItem> feed_items=null;
 			if(!feed.getType().equals("rss"))continue;
 			if(memo.containsKey(feed.getUrl())){
-				feed_items=memo.get(feed);
+				feed_items=memo.get(feed.getUrl());
 			}else{
 				try {
 					RSSReader rssReader = new RSSReader(feed.getUrl());
