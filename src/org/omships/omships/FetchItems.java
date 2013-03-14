@@ -60,9 +60,13 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	}//end doInBackground
 	
 	protected void onPostExecute(List<RSSItem> items){
-		ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(context,
-				android.R.layout.simple_list_item_1,items);
-		view.setAdapter(adapter);
-		mDialog.dismiss();
+		try{
+			ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(context,
+					android.R.layout.simple_list_item_1,items);
+			view.setAdapter(adapter);
+			mDialog.dismiss();
+		}catch(java.lang.IllegalArgumentException ex){
+			ex.printStackTrace();
+		}
 	}
 }//end class FetchItems
