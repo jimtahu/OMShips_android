@@ -1,9 +1,13 @@
 package org.omships.omships;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
 
 /**
  * Class reads RSS data.
@@ -22,8 +26,11 @@ public class RSSReader {
     /**
      * Get RSS items. This method will be called to get the parsing process result.
      * @return
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     * @throws IOException 
      */
-    public List<RSSItem> getItems() throws Exception {
+    public List<RSSItem> getItems() throws ParserConfigurationException, SAXException, IOException{
         // At first we need to get an SAX Parser Factory object
         SAXParserFactory factory = SAXParserFactory.newInstance();
         // Using factory we create a new SAX Parser instance
