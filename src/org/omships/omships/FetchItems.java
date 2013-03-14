@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
@@ -12,8 +13,10 @@ import android.widget.ListView;
 
 public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	static Map<String, List<RSSItem> > memo = new HashMap<String, List<RSSItem> >();
+	ProgressDialog mDialog;
 	Context context;
 	ListView view;
+	
 	
 	public static void invalidate(Feed feed){
 		if(memo.containsKey(feed.getUrl()))
@@ -24,6 +27,13 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	public FetchItems(Context context,ListView view){
 		this.context=context;
 		this.view=view;
+	}
+	
+	protected void onPreExecute(){
+		mDialog = new ProgressDialog(context);
+        mDialog.setMessage("Loading...");
+        mDialog.setCancelable(false);
+        mDialog.show();
 	}
 	
 	@Override
@@ -53,5 +63,6 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 		ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(context,
 				android.R.layout.simple_list_item_1,items);
 		view.setAdapter(adapter);
+		mDialog.dismiss();
 	}
 }//end class FetchItems
