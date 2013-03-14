@@ -1,7 +1,9 @@
 package org.omships.omships;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -17,10 +19,15 @@ public class MapActivity extends FragmentActivity {
 	private GoogleMap daMap;
 	
 	private void setUpMap() {
+		LatLng pos = new LatLng(9.9336776461222,102.71869799632);
         daMap.addMarker(new MarkerOptions()
-        .position(new LatLng(0,0))
+        .position(pos)
         .title(Settings.getShip().getName()));
-    }
+        daMap.moveCamera(
+        		CameraUpdateFactory.newCameraPosition(
+        				CameraPosition.fromLatLngZoom(
+        						pos,10.0f)));
+    }//end setUpMap
 	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
