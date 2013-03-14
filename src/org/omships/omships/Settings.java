@@ -9,12 +9,14 @@ public class Settings {
 	private static List<Ship> ships=null;
 	
 	public static void loadConfig(Resources r){
-		SettingsReader reader = new SettingsReader(r.openRawResource(R.raw.config));
-		try {
-			ships = reader.getItems();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		if(ships==null){
+			SettingsReader reader = new SettingsReader(r.openRawResource(R.raw.config));
+			try {
+				ships = reader.getItems();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//end try-catch
+		}//end if
 	}//end loadConfig
 	
 	public static List<Ship> getShips(){

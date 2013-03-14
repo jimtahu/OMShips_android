@@ -20,9 +20,11 @@
         <news>
             <feed type="twitter" handle="logoshope" />
             <feed type="rss" url="http://www.omships.org/rss/omsi_news.php" />
+            <feed type="rss" url="https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=logoshope" />
         </news>
         <media>
             <feed type="rss" url="http://www.omships.org/rss/omsi_photos.php" />
+            <feed type="rss" url="http://vimeo.com/logoshope/videos/rss" />
             <feed type="vimeo" person="logoshope" />
         </media>
     </ship>
