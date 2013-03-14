@@ -1,45 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="5dp">
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:padding="5dp"
-            android:layout_weight="1">
-            <include android:id="@+id/textview1"  layout="@layout/feedlayout" />
-            <TextView 
-                android:id="@+id/textview2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
-                android:text="News" />
-            <TextView 
-                android:id="@+id/textview3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
-                android:text="Photos" />
-            <TextView 
-                android:id="@+id/textview4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
-                android:text="Webcams" />
-            <TextView 
-                android:id="@+id/textview5"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
-                android:text="Ports" />
-                
-        </FrameLayout>
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</TabHost>
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+ 
+    <android.support.v4.view.PagerTabStrip
+        android:id="@+id/pager_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#B22222"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:textColor="#fff" />
+ 
+</android.support.v4.view.ViewPager>
