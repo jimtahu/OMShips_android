@@ -85,7 +85,7 @@ public class RSSItem implements Parcelable{
 	}
 	
 	public String toString(){
-		return this.title;
+		return this.description;
 	}
 	@Override
 	public int describeContents() {
