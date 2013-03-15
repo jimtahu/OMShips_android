@@ -4,17 +4,21 @@ package org.omships.omships;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
 import android.os.Build;
 
 public class WebPageView extends Activity {
 	FeedItem item;
 	protected WebView webpage;
 	protected String url;
+	ProgressBar progressBar;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -26,11 +30,32 @@ public class WebPageView extends Activity {
 		
 		this.item = getIntent().getExtras().getParcelable("item");
 		this.setTitle(this.item.getTitle());
+		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		url = item.getLink();
 		webpage = new WebView(this);
 		webpage = (WebView)(findViewById(R.id.web_view));
-		webpage.setWebViewClient(new WebViewClient());
-		//webpage.getSettings().setJavaScriptEnabled(true);
+		webpage.setWebViewClient(new WebViewClient(){
+			@Override
+	        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+	            // TODO Auto-generated method stub
+	            super.onPageStarted(view, url, favicon);
+	        }
+	 
+	        @Override
+	        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+	            // TODO Auto-generated method stub
+	        	view.loadUrl(url);
+	            return true;
+	        }
+	 
+	        @Override
+	        public void onPageFinished(WebView view, String url) {
+	            // TODO Auto-generated method stub
+	            super.onPageFinished(view, url);
+	            progressBar.setVisibility(View.GONE);
+	        }});
+		
+		webpage.getSettings().setJavaScriptEnabled(true);
 		webpage.loadUrl(url);
 		webpage.setVisibility(WebView.VISIBLE);
 	}//end onCreate
