@@ -53,14 +53,14 @@ public class MainActivity extends FragmentActivity {
         	return tabNames[position];
         }
         
-        public static Fragment create(int page) {
+        public Fragment create(int page) {
             Bundle args = new Bundle();
             args.putInt(ARG_PAGE, page);
             Fragment fragment;
             switch(page){
-            /*case 0:
+            case 0:
             	fragment = new ShipMapFragment();
-            	break;*/
+            	break;
             case 1:
             	fragment = new NewsFeedFragment();
             	break;

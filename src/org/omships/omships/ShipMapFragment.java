@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,5 +94,18 @@ public class ShipMapFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceBundle){
 		return inflater.inflate(R.layout.maplayout, container, false);
+	}
+	
+	@Override
+	public void onDestroyView() {
+        super.onDestroyView(); 
+        try{
+	        Fragment fragment = (getFragmentManager().findFragmentById(R.id.map));  
+	        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+	        ft.remove(fragment);
+	        ft.commit();
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
 	}
 }//end MapActivity
