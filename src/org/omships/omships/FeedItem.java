@@ -91,7 +91,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	}
 	
 	public String toString(){
-		return this.description;
+		return this.getDescription();
 	}
 	@Override
 	public int describeContents() {

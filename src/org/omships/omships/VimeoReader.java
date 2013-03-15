@@ -1,6 +1,7 @@
 package org.omships.omships;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,7 +18,9 @@ public class VimeoReader implements Reader<FeedItem> {
 	
 	@Override
 	public List<FeedItem> getItems() throws ParserConfigurationException, SAXException, IOException{
-		return reader.getItems();
+		List<FeedItem> rssItems=reader.getItems();
+		List<FeedItem> items=new ArrayList<FeedItem>();
+		for(FeedItem item:rssItems)items.add(new VimeoItem(item));
+		return items;
 	}
-
 }
