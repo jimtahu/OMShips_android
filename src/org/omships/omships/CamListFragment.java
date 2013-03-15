@@ -25,5 +25,4 @@ public class CamListFragment extends Fragment {
 		camList.setOnItemClickListener(
 				new ItemClicked<WebCam>(getActivity(),CamraView.class));
 	}//end onStart
-
 }//end CamListActivity
