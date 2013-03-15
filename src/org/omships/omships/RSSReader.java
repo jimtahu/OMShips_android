@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
  * @author ITCuties
  * From http://www.itcuties.com/android/how-to-write-android-rss-parser/
  */
-public class RSSReader {
+public class RSSReader implements Reader<FeedItem> {
 	// Our class has an attribute which represents RSS Feed URL
     private String rssUrl;
     /**
@@ -30,7 +30,7 @@ public class RSSReader {
      * @throws ParserConfigurationException 
      * @throws IOException 
      */
-    public List<RSSItem> getItems() throws ParserConfigurationException, SAXException, IOException{
+    public List<FeedItem> getItems() throws ParserConfigurationException, SAXException, IOException{
         // At first we need to get an SAX Parser Factory object
         SAXParserFactory factory = SAXParserFactory.newInstance();
         // Using factory we create a new SAX Parser instance

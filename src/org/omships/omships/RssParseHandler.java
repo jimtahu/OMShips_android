@@ -21,26 +21,26 @@ public class RssParseHandler extends DefaultHandler {
 	}
 	
     // List of items parsed
-    private List<RSSItem> rssItems;
+    private List<FeedItem> rssItems;
     // We have a local reference to an object which is constructed while parser is working on an item tag
     // Used to reference item while parsing
-    private RSSItem currentItem;
+    private FeedItem currentItem;
     
     private SubItem currentSub;
  
     public RssParseHandler() {
-        rssItems = new ArrayList<RSSItem>();
+        rssItems = new ArrayList<FeedItem>();
         currentSub = SubItem.none;
     }
     // We have an access method which returns a list of items that are read from the RSS feed. This method will be called when parsing is done.
-    public List<RSSItem> getItems() {
+    public List<FeedItem> getItems() {
         return rssItems;
     }
     // The StartElement method creates an empty RssItem object when an item start tag is being processed. When a title or link tag are being processed appropriate indicators are set to true.
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if ("item".equals(qName)) {
-            currentItem = new RSSItem();
+            currentItem = new FeedItem();
             currentSub = SubItem.none;
         } else if ("title".equals(qName)) {
             currentSub = SubItem.title;

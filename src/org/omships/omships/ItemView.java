@@ -19,7 +19,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 
 public class ItemView extends Activity {
-	RSSItem item;
+	FeedItem item;
 	protected WebView webpage;
 	protected ImageView viewPic;
 	protected FrameLayout placeHolder;

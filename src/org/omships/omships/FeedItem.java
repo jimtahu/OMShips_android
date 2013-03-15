@@ -13,7 +13,7 @@ import android.os.Parcelable;
  * @author jimtahu
  * Based on http://www.itcuties.com/android/how-to-write-android-rss-parser/
  */
-public class RSSItem implements Parcelable,Comparable<RSSItem>{
+public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	private String title;
 	private String link;
 	private Date pubDate;
@@ -22,14 +22,14 @@ public class RSSItem implements Parcelable,Comparable<RSSItem>{
 	final static SimpleDateFormat format =
 			new SimpleDateFormat("EEE, dd MMM yyyy k:m:s",Locale.US);
 	
-	public RSSItem(){
+	public FeedItem(){
 		this.title = "None";
 		this.link = "http://www.google.com";
 		this.pubDate = new Date();
 		this.description = "No news is good news";
 	}
 
-	public RSSItem(Parcel in){
+	public FeedItem(Parcel in){
 		this.title=in.readString();
 		this.link=in.readString();
 		try {
@@ -106,19 +106,19 @@ public class RSSItem implements Parcelable,Comparable<RSSItem>{
 		dest.writeString(getDescription());
 	}
 	
-	public static final Parcelable.Creator<RSSItem> CREATOR = new Parcelable.Creator<RSSItem>() {
+	public static final Parcelable.Creator<FeedItem> CREATOR = new Parcelable.Creator<FeedItem>() {
 		@Override
-		public RSSItem createFromParcel(Parcel source) {
-			return new RSSItem(source);
+		public FeedItem createFromParcel(Parcel source) {
+			return new FeedItem(source);
 		}
 		@Override
-		public RSSItem[] newArray(int size) {
-			return new RSSItem[size];
+		public FeedItem[] newArray(int size) {
+			return new FeedItem[size];
 		}
 	};
 
 	@Override
-	public int compareTo(RSSItem arg0) {
+	public int compareTo(FeedItem arg0) {
 		if(this.getPubDate().compareTo(arg0.getPubDate())!=0)
 			return this.getPubDate().compareTo(arg0.getPubDate());
 		else 

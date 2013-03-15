@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <ship name="Logos Hope" icon="">
-        <location url="http://www.gbaships.org/3d/location.txt"/>
-        <ports url="" />
+    <ship name="Logos Hope" iconURL="">
+        <location url="http://www.gbaships.org/3d/location.txt" />
+        <ports url="http://www.omships.org/includes_custom/inc_app_upcoming_ports_feed.php" />
         <webcams>
             <webcam url="http://www.omships.org/webcam/cam01.jpg"
-                name="Port Bridge Wing" updateInterval="120"/>
+                name="Port Bridge Wing" updateInterval="120" />
             <webcam url="http://www.gbaships.org/webcam/cam02.jpg"
-                name="Bridge" updateInterval="120"/>
+                name="Bridge" updateInterval="120" />
             <webcam url="http://www.gbaships.org/webcam/cam03.jpg"
-                name="Aft" updateInterval="120"/>
+                name="Aft" updateInterval="120" />
             <webcam url="http://www.gbaships.org/webcam/cam04.jpg"
-                name="Bookfair Starboard" updateInterval="120"/>
+                name="Bookfair Starboard" updateInterval="120" />
             <webcam url="http://www.gbaships.org/webcam/cam05.jpg"
-                name="International Cafe" updateInterval="120"/>
+                name="International Cafe" updateInterval="120" />
             <webcam url="http://www.gbaships.org/webcam/cam06.jpg"
-                name="Bookfair Port" updateInterval="120"/>
+                name="Bookfair Port" updateInterval="120" />
         </webcams>
         <news>
             <feed type="twitter" handle="logoshope" />
             <feed type="rss" url="http://www.omships.org/rss/omsi_news.php" />
-            <feed type="rss" url="https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=logoshope" />
         </news>
         <media>
             <feed type="rss" url="http://www.omships.org/rss/omsi_photos.php" />
-            <feed type="rss" url="http://vimeo.com/logoshope/videos/rss" />
             <feed type="vimeo" person="logoshope" />
         </media>
     </ship>

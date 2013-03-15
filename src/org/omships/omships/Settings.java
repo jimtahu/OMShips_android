@@ -1,7 +1,5 @@
 package org.omships.omships;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -19,12 +17,6 @@ public class Settings {
 			try {
 				SettingsReader reader=new SettingsReader(new URL(urls[0]).openStream());
 				ships = reader.getItems();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
