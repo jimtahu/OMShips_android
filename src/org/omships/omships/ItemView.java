@@ -9,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
-import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
@@ -38,16 +36,18 @@ public class ItemView extends Activity {
 		TextView description = (TextView) findViewById(R.id.description);
 		description.setText(item.getDescription());
 		
+		//decides what to do depending on whether or not the item is an image or video
 		if(item.isImage()){
 			ImageView photo = (ImageView) findViewById(R.id.photo);
 			new FetchImage(photo).execute(item.getLink());
 			photo.setVisibility(View.VISIBLE);
 			photo.setContentDescription(item.getDescription());
-			//webpage.setVisibility(View.GONE);
 		}else{
+			//creates the url for viewing the video directly
 			vidURL = item.getLink().substring(17, item.getLink().length());
 			vidURL = "http://player.vimeo.com/video/"+vidURL+"?autoplay=1&portrait=0&title&byline";
 			initUI(vidURL);
+			//enables javascript for the webView
 			WebSettings webSettings = webpage.getSettings();
 			webSettings.setJavaScriptEnabled(true);			
 		}//end if image
@@ -115,6 +115,7 @@ public class ItemView extends Activity {
 		placeHolder.addView(webpage);
 	}
 	
+	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
 		if(webpage != null){
@@ -125,6 +126,14 @@ public class ItemView extends Activity {
 		setContentView(R.layout.itemviewlayout);
 		initUI(vidURL);
 	}
-
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		webpage.stopLoading(); 
+		webpage.loadUrl("");
+		webpage.reload();
+		webpage = null;
+	}
 }
 
