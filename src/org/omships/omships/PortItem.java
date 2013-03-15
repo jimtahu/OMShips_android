@@ -47,6 +47,12 @@ public class PortItem extends FeedItem {
 
 	@Override
 	public String toString() {
-		return getCity()+", "+getCountry();
+		StringBuilder build=new StringBuilder();
+		build.append(getCity());
+		build.append(", ");
+		build.append(getCountry());
+		build.append(" on ");
+		build.append(getArrive());
+		return build.toString();
 	}
 }//end PortItem
