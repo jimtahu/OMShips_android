@@ -23,7 +23,7 @@ public class ItemView extends Activity {
 	RSSItem item;
 	protected WebView webpage;
 	protected FrameLayout placeHolder;
-	protected String vidURL;
+	protected String url, vidURL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +35,27 @@ public class ItemView extends Activity {
 		this.setTitle(this.item.getTitle());
 		TextView description = (TextView) findViewById(R.id.description);
 		description.setText(item.getDescription());
+		url = item.getLink();
 		
+		//decides what to do depending on whether or not the item is an image or video
 		if(item.isImage()){
 			ImageView photo = (ImageView) findViewById(R.id.photo);
-			new FetchImage(photo).execute(item.getLink());
+			new FetchImage(photo).execute(url);
 			photo.setVisibility(View.VISIBLE);
 			photo.setContentDescription(item.getDescription());
-			//webpage.setVisibility(View.GONE);
-		}else{
+		}else if(url.contains("vimeo")){
+			//creates the url for viewing the video directly
 			vidURL = item.getLink().substring(17, item.getLink().length());
 			vidURL = "http://player.vimeo.com/video/"+vidURL+"?autoplay=1&portrait=0&title&byline";
 			initUI(vidURL);
+			//enables javascript for the webView
 			WebSettings webSettings = webpage.getSettings();
 			webSettings.setJavaScriptEnabled(true);			
-		}//end if image
+		}else{
+			webpage = (WebView)(findViewById(R.id.web_view));
+			webpage.loadUrl(item.getLink());
+		}
+		
 	}//end onCreate
 
 	/**
@@ -105,14 +112,15 @@ public class ItemView extends Activity {
 		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
 		if(webpage == null){
 			webpage = new WebView(this);
-			webpage.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 
-					LayoutParams.FILL_PARENT));
+			webpage.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 
+					LayoutParams.MATCH_PARENT));
 			webpage.setWebViewClient(new WebViewClient());
 			webpage.loadUrl(vidURL);
 		}
 		placeHolder.addView(webpage);
 	}
 	
+	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
 		if(webpage != null){
@@ -123,6 +131,16 @@ public class ItemView extends Activity {
 		setContentView(R.layout.itemviewlayout);
 		initUI(vidURL);
 	}
-
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(this.url.contains("vimeo")){
+			webpage.stopLoading(); 
+			webpage.loadUrl("");
+			webpage.reload();
+			webpage = null;
+		}
+	}
 }
 
