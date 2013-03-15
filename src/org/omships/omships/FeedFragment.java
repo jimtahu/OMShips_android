@@ -20,7 +20,7 @@ public abstract class FeedFragment extends Fragment {
 				int postion, long id) {
 			RSSItem item = (RSSItem) adaptor.getItemAtPosition(postion);
 			Intent intent = new Intent(getActivity().getApplicationContext(),NewsItemView.class);
-			intent.putExtra("feeditem",item);
+			intent.putExtra("item",item);
 			startActivity(intent);
 		}
 	}//end class NewsItemClicked
