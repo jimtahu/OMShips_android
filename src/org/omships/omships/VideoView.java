@@ -3,25 +3,22 @@ package org.omships.omships;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Build;
 
-public class ItemView extends Activity {
+public class VideoView extends Activity {
 	RSSItem item;
 	protected WebView webpage;
-	protected ImageView viewPic;
 	protected FrameLayout placeHolder;
 	protected String url, vidURL;
 	
@@ -29,22 +26,22 @@ public class ItemView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.itemviewlayout);
+		setContentView(R.layout.videoviewlayout);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		this.item = getIntent().getExtras().getParcelable("item");
 		this.setTitle(this.item.getTitle());
-		TextView description = (TextView) findViewById(R.id.description);
-		description.setText(item.getDescription());
 		url = item.getLink();
 		
-		//decides what to do depending on whether or not the item is an image or video
-		if(item.isImage()){
-			description.setVisibility(TextView.VISIBLE);
-			initUIpic(url);	
-		}else{
-			webpage = (WebView)(findViewById(R.id.web_view));
-			webpage.loadUrl(item.getLink());
+		
+		if(url.contains("vimeo")){
+			//creates the url for viewing the video directly
+			vidURL = item.getLink().substring(17, item.getLink().length());
+			vidURL = "http://player.vimeo.com/video/"+vidURL+"?autoplay=1&portrait=0&title&byline";
+			initUI(vidURL);
+			//enables javascript for the webView
+			WebSettings webSettings = webpage.getSettings();
+			webSettings.setJavaScriptEnabled(true);			
 		}
 		
 	}//end onCreate
@@ -57,13 +54,6 @@ public class ItemView extends Activity {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.item_view, menu);
-		return true;
 	}
 
 	@Override
@@ -98,32 +88,39 @@ public class ItemView extends Activity {
 		webpage.restoreState(savedInstanceState);
 	}
 	
-	protected void initUIpic(String url){
-		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
-		if(viewPic == null){
-			viewPic = new ImageView(this);
-			viewPic.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 
+	//puts video in frameLayout
+	protected void initUI(String vidURL){
+		placeHolder = ((FrameLayout)findViewById(R.id.vidViewPlaceholder));
+		if(webpage == null){
+			webpage = new WebView(this);
+			webpage.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 
 					LayoutParams.MATCH_PARENT));
-			new FetchImage(viewPic).execute(url);
-			viewPic.setVisibility(View.VISIBLE);
-			viewPic.setContentDescription(item.getDescription());
+			webpage.setWebViewClient(new WebViewClient());
+			webpage.loadUrl(vidURL);
 		}
-		placeHolder.addView(viewPic);
+		placeHolder.addView(webpage);
 	}
 	
 	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
-		placeHolder.removeAllViews();
-		super.onConfigurationChanged(newConfig);
-		setContentView(R.layout.itemviewlayout);
-		viewPic.setVisibility(ImageView.VISIBLE);
-		initUIpic(url);
+		if(webpage != null){
+			placeHolder.removeView(webpage);
+			super.onConfigurationChanged(newConfig);
+			setContentView(R.layout.videoviewlayout);
+			initUI(vidURL);
+		}
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		if(this.url.contains("vimeo")){
+			webpage.stopLoading(); 
+			webpage.loadUrl("");
+			webpage.reload();
+			webpage = null;
+		}
 	}
 }
 

@@ -52,6 +52,12 @@ public class RSSItem implements Parcelable,Comparable<RSSItem>{
 		else return false;
 	}
 	
+	public boolean isVideo(){
+		if(this.getLink().contains("vimeo"))return true;
+		else return false;
+	}
+	
+	
 	public String getTitle() {
 		return title;
 	}

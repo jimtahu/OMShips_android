@@ -43,7 +43,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.omships.omships.NewsFeedActivity" />
-        </activity>        
+        </activity>     
+        <activity
+            android:name="org.omships.omships.VideoView"
+            android:configChanges="screenSize|orientation"
+            android:label="@string/title_activity_item_view"
+            android:parentActivityName="org.omships.omships.NewsFeedFragment" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.omships.omships.NewsFeedActivity" />
+        </activity>       
         <activity
             android:name="org.omships.omships.CamraView"
             android:label="@string/title_activity_camra_view"
