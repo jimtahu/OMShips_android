@@ -22,6 +22,7 @@ public class MainActivity extends FragmentActivity {
 		ArrayList<Feed> feedList = new ArrayList<Feed>();
 		feedList.addAll(Settings.getShip().getNews());
 		feedList.addAll(Settings.getShip().getMedia());
+		feedList.add(Settings.getShip().getPorts());
 		new FetchItems(this,null)
 		.execute(feedList.toArray(new Feed[feedList.size()]));
 	}

@@ -10,7 +10,7 @@ import java.util.List;
 public class Ship {
 	private String name;
 	private String location;
-	private String ports;
+	private Feed ports;
 	private List<Feed> news;
 	private List<Feed> media;
 	private List<WebCam> webcams;
@@ -34,10 +34,10 @@ public class Ship {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getPorts() {
+	public Feed getPorts() {
 		return ports;
 	}
-	public void setPorts(String ports) {
+	public void setPorts(Feed ports) {
 		this.ports = ports;
 	}
 	public List<Feed> getNews() {
