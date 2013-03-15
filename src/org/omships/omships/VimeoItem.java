@@ -8,6 +8,10 @@ public class VimeoItem extends FeedItem {
 		this.setLink(item.getLink());
 	}
 	@Override
+	public int getImageResource() {
+		return android.R.drawable.ic_media_play;
+	}
+	@Override
 	public String getDescription() {
 		return super.getTitle();
 	}
