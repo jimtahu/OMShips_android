@@ -58,10 +58,19 @@ public class MainActivity extends FragmentActivity {
             Bundle args = new Bundle();
             args.putInt(ARG_PAGE, page);
             Fragment fragment;
-            if(page!=4)
-            	fragment = new PageFragment();
-            else
+            switch(page){
+            case 2:
+            	fragment = new NewsFeedFragment();
+            	break;
+            case 3:
+            	fragment = new MediaFeedFragment();
+            	break;
+            case 4:
             	fragment = new CamListFragment();
+            	break;
+            default:
+            	fragment = new PageFragment();
+            }//end switch
             fragment.setArguments(args);
             return fragment;
         }
