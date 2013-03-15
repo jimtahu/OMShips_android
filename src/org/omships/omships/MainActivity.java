@@ -91,6 +91,9 @@ public class MainActivity extends FragmentActivity {
             case 3:
             	fragment = new CamListFragment();
             	break;
+            case 4:
+            	fragment = new PortListFragment();
+            	break;
             default:
             	fragment = new PageFragment();
             }//end switch
