@@ -17,7 +17,6 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	Context context;
 	ListView view;
 	
-	
 	public static void invalidate(Feed feed){
 		if(memo.containsKey(feed.getUrl()))
 			memo.remove(feed.getUrl());
@@ -30,6 +29,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	}
 	
 	protected void onPreExecute(){
+		if(this.view==null)return;
 		mDialog = new ProgressDialog(context);
         mDialog.setMessage("Loading...");
         mDialog.setCancelable(false);
@@ -60,6 +60,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	}//end doInBackground
 	
 	protected void onPostExecute(List<RSSItem> items){
+		if(this.view==null)return;
 		try{
 			ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(context,
 					android.R.layout.simple_list_item_1,items);
