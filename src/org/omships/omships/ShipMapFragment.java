@@ -14,21 +14,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Shows the current ship on the map of the world.
  * @author jimtahu
  * Based on the basic map demo
  */
-public class MapActivity extends FragmentActivity {
+public class ShipMapFragment extends Fragment {
 	private GoogleMap daMap;
 	//private MarkerOptions marker;
 	
 	static class FetchLocation extends AsyncTask<String,Integer,LatLng>{
-		private MapActivity map;
+		private ShipMapFragment map;
 		
-		public FetchLocation(MapActivity map) {
+		public FetchLocation(ShipMapFragment map) {
 			this.map=map;
 		}
 		
@@ -71,7 +75,7 @@ public class MapActivity extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (daMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            daMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+            daMap = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (daMap != null) {
@@ -81,11 +85,14 @@ public class MapActivity extends FragmentActivity {
     }
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
 		Settings.loadConfig(getResources());
-		setContentView(R.layout.maplayout);
 		new FetchLocation(this).execute(Settings.getShip().getLocation());
 	}
-
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceBundle){
+		return inflater.inflate(R.layout.maplayout, container, false);
+	}
 }//end MapActivity

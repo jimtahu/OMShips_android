@@ -59,6 +59,9 @@ public class MainActivity extends FragmentActivity {
             args.putInt(ARG_PAGE, page);
             Fragment fragment;
             switch(page){
+            case 1:
+            	fragment = new ShipMapFragment();
+            	break;
             case 2:
             	fragment = new NewsFeedFragment();
             	break;
