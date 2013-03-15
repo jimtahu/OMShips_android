@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
@@ -69,7 +68,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	protected void onPostExecute(List<FeedItem> items){
 		if(this.view==null)return;
 		try{
-			ArrayAdapter<FeedItem> adapter = new ArrayAdapter<FeedItem>(context,
+			FeedArrayAdapter adapter = new FeedArrayAdapter(context,
 					android.R.layout.simple_list_item_1,items);
 			view.setAdapter(adapter);
 			mDialog.dismiss();

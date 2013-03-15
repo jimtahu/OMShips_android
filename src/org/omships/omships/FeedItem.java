@@ -42,6 +42,15 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	}
 	
 	/**
+	 * Gets the resource to draw with.
+	 * Shoud be overiden with 
+	 * @return the drawable resource id to draw this item
+	 */
+	public int getImageResource(){
+		return android.R.drawable.sym_action_email;
+	}
+	
+	/**
 	 * Checks if the linked item appears to be an image.
 	 * @return
 	 */
