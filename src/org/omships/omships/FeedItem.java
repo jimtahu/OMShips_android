@@ -57,6 +57,11 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 		else return false;
 	}
 	
+	public boolean isWebPage(){
+		if(!isImage() && !isVideo()) return true;
+		else return false;
+	}
+	
 	
 	public String getTitle() {
 		return title;

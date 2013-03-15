@@ -19,6 +19,7 @@
         </webcams>
         <news>
             <feed type="twitter" handle="logoshope" />
+            <feed type="twitter" handle="omships" />
             <feed type="rss" url="http://www.omships.org/rss/omsi_news.php" />
         </news>
         <media>

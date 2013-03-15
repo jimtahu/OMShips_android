@@ -22,6 +22,8 @@ public abstract class FeedFragment extends Fragment {
 			Intent intent;
 			if(item.isVideo())
 				intent = new Intent(getActivity().getApplicationContext(), VideoView.class);
+			else if(item.isWebPage())
+				intent = new Intent(getActivity().getApplicationContext(), WebPageView.class);
 			else
 				intent = new Intent(getActivity().getApplicationContext(),ItemView.class);
 			intent.putExtra("item",item);

@@ -23,7 +23,7 @@ public class ItemView extends Activity {
 	protected WebView webpage;
 	protected ImageView viewPic;
 	protected FrameLayout placeHolder;
-	protected String url, vidURL;
+	protected String url;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -38,14 +38,8 @@ public class ItemView extends Activity {
 		description.setText(item.getDescription());
 		url = item.getLink();
 		
-		//decides what to do depending on whether or not the item is an image or video
-		if(item.isImage()){
-			description.setVisibility(TextView.VISIBLE);
-			initUIpic(url);	
-		}else{
-			webpage = (WebView)(findViewById(R.id.web_view));
-			webpage.loadUrl(item.getLink());
-		}
+		description.setVisibility(TextView.VISIBLE);
+		initUIpic(url);	
 		
 	}//end onCreate
 
@@ -83,20 +77,20 @@ public class ItemView extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	//to preserve webview state
-	@Override
-	protected void onSaveInstanceState(Bundle outState){
-		super.onSaveInstanceState(outState);
-		//Save the state of the WebView
-		webpage.saveState(outState);
-	}
-	
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState){
-		super.onRestoreInstanceState(savedInstanceState);
-		//restore the state of the WebView
-		webpage.restoreState(savedInstanceState);
-	}
+//	//to preserve webview state
+//	@Override
+//	protected void onSaveInstanceState(Bundle outState){
+//		super.onSaveInstanceState(outState);
+//		//Save the state of the WebView
+//		webpage.saveState(outState);
+//	}
+//	
+//	@Override
+//	protected void onRestoreInstanceState(Bundle savedInstanceState){
+//		super.onRestoreInstanceState(savedInstanceState);
+//		//restore the state of the WebView
+//		webpage.restoreState(savedInstanceState);
+//	}
 	
 	protected void initUIpic(String url){
 		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
@@ -114,16 +108,16 @@ public class ItemView extends Activity {
 	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
-		placeHolder.removeAllViews();
-		super.onConfigurationChanged(newConfig);
-		setContentView(R.layout.itemviewlayout);
-		viewPic.setVisibility(ImageView.VISIBLE);
-		initUIpic(url);
+		if(placeHolder != null){
+			placeHolder.removeAllViews();
+			super.onConfigurationChanged(newConfig);
+			setContentView(R.layout.itemviewlayout);
+			if(item.isImage()){
+				viewPic.setVisibility(ImageView.VISIBLE);
+				initUIpic(url);
+			}
+		}
 	}
 	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
 }
 
