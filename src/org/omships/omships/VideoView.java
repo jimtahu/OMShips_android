@@ -17,7 +17,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 
 public class VideoView extends Activity {
-	RSSItem item;
+	FeedItem item;
 	protected WebView webpage;
 	protected FrameLayout placeHolder;
 	protected String url, vidURL;

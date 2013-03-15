@@ -18,7 +18,7 @@ public abstract class FeedFragment extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> adaptor, View view,
 				int postion, long id) {
-			FeedItem item = (RSSItem) adaptor.getItemAtPosition(postion);
+			FeedItem item = (FeedItem) adaptor.getItemAtPosition(postion);
 			Intent intent;
 			if(item.isVideo())
 				intent = new Intent(getActivity().getApplicationContext(), VideoView.class);
