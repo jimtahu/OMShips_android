@@ -28,6 +28,7 @@ public class Feed {
 		this.type = type;
 	}
 	public void setType(String value) {
+		if(value==null)return;
 		if(value.equals("rss"))
 			this.type=Type.rss;
 		else if(value.equals("photo"))
@@ -49,6 +50,8 @@ public class Feed {
 			return new TwitterReader(this.getUrl());
 		case vimeo:
 			return new VimeoReader(this.getUrl());
+		case port:
+			return new PortReader(this.getUrl());
 		default:
 			return new RSSReader(this.getUrl());
 		}

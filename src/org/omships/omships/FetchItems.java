@@ -49,11 +49,12 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 						+" found "+feed_items.size()+" items");
 			}else{
 				try {
+					Log.e("XMLP","Fetching "+feed.toString());
 					Reader<FeedItem> reader = feed.getReader();
 					feed_items=reader.getItems();
 					if(feed_items!=null && feed_items.size()>0)
 						memo.put(feed.toString(),feed_items);
-		            Log.e("XMLP","Fetching "+feed.toString()
+		            Log.e("XMLP","Fetch on "+feed.toString()
 						+" found "+feed_items.size()+" items");
 				} catch (Exception e) {
 					e.printStackTrace();

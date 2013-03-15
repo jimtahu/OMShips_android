@@ -71,7 +71,9 @@ public class SettingsParseHandler extends DefaultHandler {
         } else if("location".contains(qName) && currentShip!=null){
         	currentShip.setLocation(attributes.getValue("url"));
     	} else if("ports".contains(qName)){
-    		currentShip.setPorts((attributes.getValue("url")));
+    		Feed ports=new Feed(attributes.getValue("url"));
+    		ports.setType(Feed.Type.port);
+    		currentShip.setPorts(ports);
     	} else if ("news".equals(qName) && currentSub==SubItem.ship) {
     		currentSub = SubItem.news;
     		currentNews = new ArrayList<Feed>();
