@@ -19,12 +19,6 @@ public class Settings {
 			try {
 				SettingsReader reader=new SettingsReader(new URL(urls[0]).openStream());
 				ships = reader.getItems();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -42,7 +36,7 @@ public class Settings {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//end try-catch
-			//new FetchConfig().execute("http://danielrothfus.com/config.xml");
+			new FetchConfig().execute("http://danielrothfus.com/config.xml");
 		}//end if
 	}//end loadConfig
 	

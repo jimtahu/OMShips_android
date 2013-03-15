@@ -43,6 +43,25 @@ public class SettingsParseHandler extends DefaultHandler {
         return ships;
     }
     
+    Feed buildFeed(Attributes attributes){
+    	Feed feed = new Feed();
+    	feed.setType(attributes.getValue("type"));
+    	switch(feed.getType()){
+    	case rss:
+    		feed.setUrl(attributes.getValue("url"));
+    		break;
+    	case twitter:
+    		feed.setUrl(attributes.getValue("handle"));
+    		break;
+    	case vimeo:
+    		feed.setUrl(attributes.getValue("person"));
+    		break;
+		default:
+			break;
+    	}
+    	return feed;
+    }
+    
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if ("ship".equals(qName)) {
@@ -69,9 +88,7 @@ public class SettingsParseHandler extends DefaultHandler {
         	currentWebCam.setUpdate(Long.parseLong(attributes.getValue("updateInterval")));
         	currentWebCams.add(currentWebCam);
         } else if ("feed".equals(qName)) {
-        	Feed feed=new Feed();
-        	feed.setUrl(attributes.getValue("url"));
-        	feed.setType(attributes.getValue("type"));
+        	Feed feed=buildFeed(attributes);
         	if(currentSub==SubItem.news && currentNews!=null){
         		currentNews.add(feed);
         	}else if(currentSub==SubItem.media && currentMedia!=null){
