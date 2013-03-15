@@ -21,7 +21,7 @@
 	    android:layout_height="fill_parent"
 	    android:contentDescription="@string/hello_world"
 	    android:visibility="gone"
-	    android:src="@drawable/logo"/>
+	    android:src="@drawable/placeholder"/>
 	
 	<FrameLayout android:id="@+id/webViewPlaceholder"
     android:layout_width="fill_parent"
