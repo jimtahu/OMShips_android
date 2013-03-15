@@ -28,7 +28,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.omships.omships.NewsFeedActivity"
+            android:name="org.omships.omships.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,37 +39,11 @@
             android:name="org.omships.omships.ItemView"
             android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_item_view"
-            android:parentActivityName="org.omships.omships.NewsFeedActivity" >
+            android:parentActivityName="org.omships.omships.NewsFeedFragment" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.omships.omships.NewsFeedActivity" />
-        </activity>
-        <activity
-            android:name="org.omships.omships.MediaFeedActivity"
-            android:label="@string/title_activity_media" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="org.omships.omships.MapActivity"
-            android:label="@string/title_activity_map" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name="org.omships.omships.CamListActivity"
-            android:label="@string/title_activity_cam_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        </activity>        
         <activity
             android:name="org.omships.omships.CamraView"
             android:label="@string/title_activity_camra_view"
