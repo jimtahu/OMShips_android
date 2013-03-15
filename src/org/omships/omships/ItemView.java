@@ -22,6 +22,7 @@ import android.os.Build;
 public class ItemView extends Activity {
 	RSSItem item;
 	protected WebView webpage;
+	protected ImageView viewPic;
 	protected FrameLayout placeHolder;
 	protected String url, vidURL;
 	
@@ -39,10 +40,8 @@ public class ItemView extends Activity {
 		
 		//decides what to do depending on whether or not the item is an image or video
 		if(item.isImage()){
-			ImageView photo = (ImageView) findViewById(R.id.photo);
-			new FetchImage(photo).execute(url);
-			photo.setVisibility(View.VISIBLE);
-			photo.setContentDescription(item.getDescription());
+			description.setVisibility(TextView.VISIBLE);
+			initUIpic(url);
 		}else if(url.contains("vimeo")){
 			//creates the url for viewing the video directly
 			vidURL = item.getLink().substring(17, item.getLink().length());
@@ -120,16 +119,37 @@ public class ItemView extends Activity {
 		placeHolder.addView(webpage);
 	}
 	
+	protected void initUIpic(String url){
+		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
+		if(viewPic == null){
+			viewPic = new ImageView(this);
+			viewPic.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 
+					LayoutParams.MATCH_PARENT));
+			new FetchImage(viewPic).execute(url);
+			viewPic.setVisibility(View.VISIBLE);
+			viewPic.setContentDescription(item.getDescription());
+		}
+		placeHolder.addView(viewPic);
+	}
+	
 	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){
 		if(webpage != null){
 			placeHolder.removeView(webpage);
+			super.onConfigurationChanged(newConfig);
+			setContentView(R.layout.itemviewlayout);
+			initUI(vidURL);
+		}
+		else if(viewPic != null){
+			placeHolder.removeAllViews();
+			super.onConfigurationChanged(newConfig);
+			setContentView(R.layout.itemviewlayout);
+			viewPic.setVisibility(ImageView.VISIBLE);
+			initUIpic(url);
 		}
 		
-		super.onConfigurationChanged(newConfig);
-		setContentView(R.layout.itemviewlayout);
-		initUI(vidURL);
+		
 	}
 	
 	@Override
