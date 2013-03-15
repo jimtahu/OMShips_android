@@ -39,35 +39,35 @@
             android:name="org.omships.omships.ItemView"
             android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_item_view"
-            android:parentActivityName="org.omships.omships.NewsFeedFragment" >
+            android:parentActivityName="org.omships.omships.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.omships.omships.NewsFeedActivity" />
+                android:value="org.omships.omships.MainActivity" />
         </activity>     
         <activity
             android:name="org.omships.omships.WebPageView"
             android:label="@string/title_activity_item_view"
-            android:parentActivityName="org.omships.omships.NewsFeedFragment" >
+            android:parentActivityName="org.omships.omships.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.omships.omships.NewsFeedActivity" />
+                android:value="org.omships.omships.MainActivity" />
         </activity>
         <activity
             android:name="org.omships.omships.VideoView"
             android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_item_view"
-            android:parentActivityName="org.omships.omships.NewsFeedFragment" >
+            android:parentActivityName="org.omships.omships.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.omships.omships.NewsFeedActivity" />
+                android:value="org.omships.omships.MainActivity" />
         </activity>       
         <activity
             android:name="org.omships.omships.CamraView"
             android:label="@string/title_activity_camra_view"
-            android:parentActivityName="org.omships.omships.CamListActivity" >
+            android:parentActivityName="org.omships.omships.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.omships.omships.CamListActivity" />
+                android:value="org.omships.omships.MainActivity" />
         </activity>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
