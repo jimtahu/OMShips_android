@@ -3,28 +3,38 @@ package org.omships.omships;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
  
 public class MainActivity extends FragmentActivity {
- 
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new SampleFragmentPagerAdapter());
+        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
     }
  
-    public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-        final int PAGE_COUNT = 5;
- 
-        public SampleFragmentPagerAdapter() {
-            super(getSupportFragmentManager());
-        }
+    static public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+    	static final String ARG_PAGE = "ARG_PAGE";
+    	static final String[] tabNames =
+    		{"Map", "News/PrayerRequests", "Media","Webcams","Port Schedule"};
+    	FragmentManager fm;
+    	
+        public SampleFragmentPagerAdapter(FragmentManager fm) {
+			super(fm);
+			this.fm=fm;
+		}
+
+		static final int PAGE_COUNT = 5;
+        private SparseArray<Fragment> frags =
+        		new SparseArray<Fragment>(PAGE_COUNT);        
  
         @Override
         public int getCount() {
@@ -33,42 +43,31 @@ public class MainActivity extends FragmentActivity {
  
         @Override
         public Fragment getItem(int position) {
-        	return PageFragment.create(position + 1);
+        	if(frags.get(position)==null)
+        		frags.put(position, create(position));
+        	return frags.get(position);
         }
         
         @Override
         public CharSequence getPageTitle(int position) {
-            if(position == 0){
-            	return "Map";}
-            else if(position == 1){
-            	return "News/PrayerRequests";}
-            else if(position == 2){
-            	return "Media";}
-            else if(position == 3){
-            	return "Webcams";}
-            else{
-            	return "Port Schedule";}
+        	return tabNames[position];
         }
-    }
- 
-    public static class PageFragment extends Fragment {
-        public static final String ARG_PAGE = "ARG_PAGE";
- 
+        
         public static Fragment create(int page) {
             Bundle args = new Bundle();
             args.putInt(ARG_PAGE, page);
             Fragment fragment;
             switch(page){
-            case 1:
+            /*case 0:
             	fragment = new ShipMapFragment();
-            	break;
-            case 2:
+            	break;*/
+            case 1:
             	fragment = new NewsFeedFragment();
             	break;
-            case 3:
+            case 2:
             	fragment = new MediaFeedFragment();
             	break;
-            case 4:
+            case 3:
             	fragment = new CamListFragment();
             	break;
             default:
@@ -76,8 +75,11 @@ public class MainActivity extends FragmentActivity {
             }//end switch
             fragment.setArguments(args);
             return fragment;
-        }
+        }//end create
+    }//end SampleFragmentPagerAdapter
  
+    public static class PageFragment extends Fragment {
+  
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
