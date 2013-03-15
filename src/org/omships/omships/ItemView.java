@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -25,6 +26,7 @@ public class ItemView extends Activity {
 	protected FrameLayout placeHolder;
 	protected String url, vidURL;
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

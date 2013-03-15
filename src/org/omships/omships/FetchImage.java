@@ -41,7 +41,7 @@ class FetchImage extends AsyncTask<String, Void, Bitmap>{
 	}//end doInBackground
 	
 	protected void onPostExecute(Bitmap result){
-		if(result != null)
+		if(result != null && this.photo != null)
 			this.photo.setImageBitmap(result);
 	}
 }

@@ -1,6 +1,7 @@
 package org.omships.omships;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 			}//end if memo'd
 			if(feed_items!=null)items.addAll(feed_items);
 		}//end for feeds
+		Collections.sort(items);
 		return items;
 	}//end doInBackground
 	
