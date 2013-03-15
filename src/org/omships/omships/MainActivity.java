@@ -1,5 +1,7 @@
 package org.omships.omships;
  
+import java.util.ArrayList;
+
 import com.google.android.gms.maps.SupportMapFragment;
 
 import android.os.Bundle;
@@ -15,12 +17,21 @@ import android.view.ViewGroup;
  
 public class MainActivity extends FragmentActivity {
 	
+	protected void startPreload(){
+		Settings.loadConfig(getResources());
+		ArrayList<Feed> feedList = new ArrayList<Feed>();
+		feedList.addAll(Settings.getShip().getNews());
+		feedList.addAll(Settings.getShip().getMedia());
+		new FetchItems(this,null)
+		.execute(feedList.toArray(new Feed[feedList.size()]));
+	}
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        Settings.loadConfig(getResources());
+        startPreload();
         viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
     }
  

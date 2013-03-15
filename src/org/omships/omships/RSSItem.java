@@ -13,7 +13,7 @@ import android.os.Parcelable;
  * @author jimtahu
  * Based on http://www.itcuties.com/android/how-to-write-android-rss-parser/
  */
-public class RSSItem implements Parcelable{
+public class RSSItem implements Parcelable,Comparable<RSSItem>{
 	private String title;
 	private String link;
 	private Date pubDate;
@@ -85,7 +85,7 @@ public class RSSItem implements Parcelable{
 	}
 	
 	public String toString(){
-		return this.title;
+		return this.description;
 	}
 	@Override
 	public int describeContents() {
@@ -110,5 +110,13 @@ public class RSSItem implements Parcelable{
 			return new RSSItem[size];
 		}
 	};
+
+	@Override
+	public int compareTo(RSSItem arg0) {
+		if(this.getPubDate().compareTo(arg0.getPubDate())!=0)
+			return this.getPubDate().compareTo(arg0.getPubDate());
+		else 
+			return this.getTitle().compareTo(arg0.getTitle());
+	}
 
 }//end class RSSItem

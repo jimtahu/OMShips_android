@@ -1,6 +1,7 @@
 package org.omships.omships;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	Context context;
 	ListView view;
 	
-	
 	public static void invalidate(Feed feed){
 		if(memo.containsKey(feed.getUrl()))
 			memo.remove(feed.getUrl());
@@ -30,6 +30,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 	}
 	
 	protected void onPreExecute(){
+		if(this.view==null)return;
 		mDialog = new ProgressDialog(context);
         mDialog.setMessage("Loading...");
         mDialog.setCancelable(false);
@@ -56,10 +57,12 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 			}//end if memo'd
 			if(feed_items!=null)items.addAll(feed_items);
 		}//end for feeds
+		Collections.sort(items);
 		return items;
 	}//end doInBackground
 	
 	protected void onPostExecute(List<RSSItem> items){
+		if(this.view==null)return;
 		try{
 			ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(context,
 					android.R.layout.simple_list_item_1,items);
