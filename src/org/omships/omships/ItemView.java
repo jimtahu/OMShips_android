@@ -6,19 +6,26 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.res.Configuration;
 import android.os.Build;
 
 public class ItemView extends Activity {
 	RSSItem item;
-	WebView webpage;
+	protected WebView webpage;
+	protected FrameLayout placeHolder;
+	protected String vidURL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,31 +37,19 @@ public class ItemView extends Activity {
 		this.setTitle(this.item.getTitle());
 		TextView description = (TextView) findViewById(R.id.description);
 		description.setText(item.getDescription());
-		webpage = (WebView) findViewById(R.id.webpage);
-		ImageView photo = (ImageView) findViewById(R.id.photo);
+		
 		if(item.isImage()){
+			ImageView photo = (ImageView) findViewById(R.id.photo);
 			new FetchImage(photo).execute(item.getLink());
 			photo.setVisibility(View.VISIBLE);
 			photo.setContentDescription(item.getDescription());
-			webpage.setVisibility(View.GONE);
+			//webpage.setVisibility(View.GONE);
 		}else{
-			WebSettings webSettings = webpage.getSettings();
-			webSettings.setJavaScriptEnabled(true);
-			
-			//turns off plugins for all android versions
-			if(android.os.Build.VERSION.SDK_INT < 8)
-				webpage.getSettings().setPluginsEnabled(false);
-			else
-				webpage.getSettings().setPluginState(WebSettings.PluginState.OFF);
-			//end if/else statement
-			
-			String vidURL;
 			vidURL = item.getLink().substring(17, item.getLink().length());
-			if (savedInstanceState == null)
-			{
-				webpage.loadUrl("http://player.vimeo.com/video/"+vidURL+"?autoplay=1&portrait=0&title&byline");
-			}
-			
+			vidURL = "http://player.vimeo.com/video/"+vidURL+"?autoplay=1&portrait=0&title&byline";
+			initUI(vidURL);
+			WebSettings webSettings = webpage.getSettings();
+			webSettings.setJavaScriptEnabled(true);			
 		}//end if image
 	}//end onCreate
 
@@ -105,6 +100,30 @@ public class ItemView extends Activity {
 		super.onRestoreInstanceState(savedInstanceState);
 		//restore the state of the WebView
 		webpage.restoreState(savedInstanceState);
+	}
+	
+	//puts video in frameLayout
+	protected void initUI(String vidURL){
+		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
+		if(webpage == null){
+			webpage = new WebView(this);
+			webpage.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 
+					LayoutParams.FILL_PARENT));
+			webpage.setWebViewClient(new WebViewClient());
+			webpage.loadUrl(vidURL);
+		}
+		placeHolder.addView(webpage);
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig){
+		if(webpage != null){
+			placeHolder.removeView(webpage);
+		}
+		
+		super.onConfigurationChanged(newConfig);
+		setContentView(R.layout.itemviewlayout);
+		initUI(vidURL);
 	}
 
 }
