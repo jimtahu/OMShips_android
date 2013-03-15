@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -31,8 +37,49 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        startPreload();
-        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        
+        //checks for cellular or wifi internet access, then stops the application if none exists
+        if(!haveNetworkConnection()){
+        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        	builder.setTitle(R.string.alert_title);
+        	builder.setMessage(R.string.connection_alert);
+        	builder.setCancelable(false);
+        		
+        	builder.setPositiveButton("Close Application", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	Intent intent = new Intent(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+                }
+            });
+        	AlertDialog noConnAlert = builder.create();
+        	noConnAlert.show();
+        	
+        }
+        else{
+        	startPreload();
+        	viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        }
+    }
+    
+    //code segment take from Squonk on stackoverflow at 
+    //http://stackoverflow.com/questions/4238921/android-detect-whether-there-is-an-internet-connection-available
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
  
     static public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
