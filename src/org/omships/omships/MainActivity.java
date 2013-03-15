@@ -1,5 +1,7 @@
 package org.omships.omships;
  
+import com.google.android.gms.maps.SupportMapFragment;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +20,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        Settings.loadConfig(getResources());
         viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
     }
  
@@ -53,13 +56,20 @@ public class MainActivity extends FragmentActivity {
         	return tabNames[position];
         }
         
+        public SupportMapFragment setupMap(){
+        	SupportMapFragment fragment = new SupportMapFragment();
+        	new FetchLocation(fragment)
+        		.execute(Settings.getShip().getLocation());
+        	return fragment;
+        }
+        
         public Fragment create(int page) {
             Bundle args = new Bundle();
             args.putInt(ARG_PAGE, page);
             Fragment fragment;
             switch(page){
             case 0:
-            	fragment = new ShipMapFragment();
+            	fragment = setupMap();
             	break;
             case 1:
             	fragment = new NewsFeedFragment();

@@ -44,7 +44,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<RSSItem> > {
 					e.printStackTrace();
 				}
 			}//end if memo'd
-			items.addAll(feed_items);
+			if(feed_items!=null)items.addAll(feed_items);
 		}//end for feeds
 		return items;
 	}//end doInBackground
