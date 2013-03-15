@@ -53,4 +53,9 @@ public class Feed {
 			return new RSSReader(this.getUrl());
 		}
 	}//end getReader
+	
+	@Override
+	public String toString() {
+		return this.getType()+"://"+getUrl();
+	}
 }//end Feed

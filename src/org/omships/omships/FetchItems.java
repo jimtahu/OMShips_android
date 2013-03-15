@@ -9,6 +9,7 @@ import java.util.Map;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,8 +20,8 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	ListView view;
 	
 	public static void invalidate(Feed feed){
-		if(memo.containsKey(feed.getUrl()))
-			memo.remove(feed.getUrl());
+		if(memo.containsKey(feed.toString()))
+			memo.remove(feed.toString());
 	}//end invalidate
 	
 	
@@ -42,14 +43,18 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 		List<FeedItem> items = new ArrayList<FeedItem>();
 		for(Feed feed:args){
 			List<FeedItem> feed_items=null;
-			if(memo.containsKey(feed.getUrl())){
-				feed_items=memo.get(feed.getUrl());
+			if(memo.containsKey(feed.toString())){
+				feed_items=memo.get(feed.toString());
+				Log.e("XMLP","Cache hit on "+feed.toString()
+						+" found "+feed_items.size()+" items");
 			}else{
 				try {
 					Reader<FeedItem> reader = feed.getReader();
 					feed_items=reader.getItems();
 					if(feed_items!=null && feed_items.size()>0)
-						memo.put(feed.getUrl(),feed_items);
+						memo.put(feed.toString(),feed_items);
+		            Log.e("XMLP","Fetching "+feed.toString()
+						+" found "+feed_items.size()+" items");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

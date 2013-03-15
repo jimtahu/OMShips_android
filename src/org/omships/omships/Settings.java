@@ -1,7 +1,5 @@
 package org.omships.omships;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class Settings {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//end try-catch
-			new FetchConfig().execute("http://danielrothfus.com/config.xml");
+			//new FetchConfig().execute("http://danielrothfus.com/config.xml");
 		}//end if
 	}//end loadConfig
 	
