@@ -11,5 +11,6 @@
     <string name="title_activity_map">Ship Map</string>
     <string name="title_activity_cam_list">Web Cams</string>
     <string name="title_activity_camra_view">Webcam View</string>
-
+    <string name="connection_alert">You are not currently connected to the internet, and this application requires an internet connection to function properly. \n\nPlease check your internet connection and try again.</string>
+	<string name="alert_title">No Internet Connection!</string>
 </resources>
