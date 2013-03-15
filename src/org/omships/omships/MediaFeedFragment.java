@@ -1,6 +1,6 @@
 package org.omships.omships;
 
-public class MediaFeedActivity extends FeedActivity {
+public class MediaFeedFragment extends FeedFragment {
 
 	@Override
 	Feed[] getFeeds() {
