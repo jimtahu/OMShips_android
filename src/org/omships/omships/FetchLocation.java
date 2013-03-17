@@ -28,22 +28,22 @@ class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 			Scanner input=new Scanner(new URL(urls[0]).openStream());
 			input.useDelimiter(",");
 			//unix time
-			input.nextLong();
+			input.next();
 			//lng then lat (backwards)
 			lng=input.nextDouble();
 			lat=input.nextDouble();
 			input.close();
-		} catch (MalformedURLException e) {
+			return new LatLng(lat, lng);
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return new LatLng(lat, lng);
 	}//end doInBackground
 	
 	protected void onPostExecute(LatLng pos){
 		GoogleMap daMap =map.getMap(); 
 		if(daMap==null)return;
+		if(pos==null)return;
 		daMap.addMarker(new MarkerOptions()
         .position(pos)
         .title(Settings.getShip().getName()));
