@@ -1,5 +1,6 @@
 package org.omships.omships;
 
+import java.io.BufferedInputStream;
 import java.net.URL;
 import java.util.List;
 
@@ -15,10 +16,10 @@ public class Settings {
 		@Override
 		protected Integer doInBackground(String... urls) {
 			try {
-				SettingsReader reader=new SettingsReader(new URL(urls[0]).openStream());
+				SettingsReader reader=new SettingsReader(
+						new BufferedInputStream(new URL(urls[0]).openStream()));
 				ships = reader.getItems();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return 0;

@@ -134,10 +134,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 
 	@Override
 	public int compareTo(FeedItem arg0) {
-		if(this.getPubDate().compareTo(arg0.getPubDate())!=0)
-			return this.getPubDate().compareTo(arg0.getPubDate());
-		else 
-			return this.getTitle().compareTo(arg0.getTitle());
+		return this.getPubDate().compareTo(arg0.getPubDate());
 	}
 
 }//end class RSSItem

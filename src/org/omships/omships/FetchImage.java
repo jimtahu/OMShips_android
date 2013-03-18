@@ -1,5 +1,6 @@
 package org.omships.omships;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,7 +30,8 @@ class FetchImage extends AsyncTask<String, Void, Bitmap>{
 		if(memo.containsKey(urls[0]))
 			return memo.get(urls[0]);
 		try {
-			Bitmap image = BitmapFactory.decodeStream(new URL(urls[0]).openStream());
+			Bitmap image = BitmapFactory.decodeStream(
+					new BufferedInputStream(new URL(urls[0]).openStream()));
 			memo.put(urls[0],image);
 			return image;
 		} catch (MalformedURLException e) {

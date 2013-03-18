@@ -1,5 +1,6 @@
 package org.omships.omships;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +26,8 @@ class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 	protected LatLng doInBackground(String... urls) {
 		Double lat=0.0,lng=0.0;
 		try {
-			Scanner input=new Scanner(new URL(urls[0]).openStream());
+			Scanner input=new Scanner(
+					new BufferedInputStream(new URL(urls[0]).openStream()));
 			input.useDelimiter(",");
 			//unix time
 			input.next();
