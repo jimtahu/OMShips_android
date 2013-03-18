@@ -2,6 +2,8 @@ package org.omships.omships;
  
 import java.util.ArrayList;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import android.app.AlertDialog;
@@ -56,12 +58,15 @@ public class MainActivity extends FragmentActivity {
             });
         	AlertDialog noConnAlert = builder.create();
         	noConnAlert.show();
-        	
+        	return;
         }
-        else{
-        	startPreload();
-        	viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        int playServiceResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+        if( playServiceResults != ConnectionResult.SUCCESS){
+        	 GooglePlayServicesUtil.getErrorDialog(playServiceResults, this, 69).show();
         }
+    	startPreload();
+    	viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        
     }
     
     //code segment take from Squonk on stackoverflow at 
@@ -116,6 +121,7 @@ public class MainActivity extends FragmentActivity {
         }
         
         public SupportMapFragment setupMap(){
+        	
         	SupportMapFragment fragment = new SupportMapFragment();
         	new FetchLocation(fragment)
         		.execute(Settings.getShip().getLocation());

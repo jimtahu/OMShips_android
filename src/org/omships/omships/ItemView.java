@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.res.Configuration;
 import android.os.Build;
 
 public class ItemView extends Activity {
@@ -24,6 +23,7 @@ public class ItemView extends Activity {
 	protected ImageView viewPic;
 	protected FrameLayout placeHolder;
 	protected String url;
+	protected TextView description;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -34,12 +34,19 @@ public class ItemView extends Activity {
 		setupActionBar();
 		this.item = getIntent().getExtras().getParcelable("item");
 		this.setTitle(this.item.getTitle());
-		TextView description = (TextView) findViewById(R.id.description);
+		description = (TextView) findViewById(R.id.description);
 		description.setText(item.getDescription());
 		url = item.getLink();
 		
-		description.setVisibility(TextView.VISIBLE);
-		initUIpic(url);	
+		description.setVisibility(TextView.VISIBLE);	
+		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
+		viewPic = new ImageView(this);
+		viewPic.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, 
+				LayoutParams.MATCH_PARENT));
+		new FetchImage(viewPic).execute(url);
+		viewPic.setVisibility(View.VISIBLE);
+		viewPic.setContentDescription(item.getDescription());
+		placeHolder.addView(viewPic);
 		
 	}//end onCreate
 
@@ -77,22 +84,8 @@ public class ItemView extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-//	//to preserve webview state
-//	@Override
-//	protected void onSaveInstanceState(Bundle outState){
-//		super.onSaveInstanceState(outState);
-//		//Save the state of the WebView
-//		webpage.saveState(outState);
-//	}
-//	
-//	@Override
-//	protected void onRestoreInstanceState(Bundle savedInstanceState){
-//		super.onRestoreInstanceState(savedInstanceState);
-//		//restore the state of the WebView
-//		webpage.restoreState(savedInstanceState);
-//	}
-	
 	protected void initUIpic(String url){
+		description.setVisibility(TextView.VISIBLE);
 		placeHolder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
 		if(viewPic == null){
 			viewPic = new ImageView(this);
@@ -103,20 +96,6 @@ public class ItemView extends Activity {
 			viewPic.setContentDescription(item.getDescription());
 		}
 		placeHolder.addView(viewPic);
-	}
-	
-	//custom handles what happens when the orientation rotates, allowing it to not recall onCreate()
-	@Override
-	public void onConfigurationChanged(Configuration newConfig){
-		if(placeHolder != null){
-			placeHolder.removeAllViews();
-			super.onConfigurationChanged(newConfig);
-			setContentView(R.layout.itemviewlayout);
-			if(item.isImage()){
-				viewPic.setVisibility(ImageView.VISIBLE);
-				initUIpic(url);
-			}
-		}
 	}
 	
 }

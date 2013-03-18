@@ -34,6 +34,8 @@ public class WebPageView extends Activity {
 		url = item.getLink();
 		webpage = new WebView(this);
 		webpage = (WebView)(findViewById(R.id.web_view));
+		if(url.contains("twitter"))
+			url.replace("http://", "https://mobile.");
 		webpage.setWebViewClient(new WebViewClient(){
 			@Override
 	        public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -56,6 +58,7 @@ public class WebPageView extends Activity {
 	        }});
 		
 		webpage.getSettings().setJavaScriptEnabled(true);
+		webpage.getSettings().setDomStorageEnabled(true);
 		webpage.loadUrl(url);
 		webpage.setVisibility(WebView.VISIBLE);
 	}//end onCreate
