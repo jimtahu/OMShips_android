@@ -30,11 +30,11 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	}
 	
 	protected void onPreExecute(){
-		if(this.view==null)return;
+/*		if(this.view==null)return;
 		mDialog = new ProgressDialog(context);
         mDialog.setMessage("Loading...");
         mDialog.setCancelable(false);
-        mDialog.show();
+        mDialog.show();*/
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 			FeedArrayAdapter adapter = new FeedArrayAdapter(context,
 					android.R.layout.simple_list_item_1,items);
 			view.setAdapter(adapter);
-			mDialog.dismiss();
+			if(mDialog != null)mDialog.dismiss();
 		}catch(java.lang.IllegalArgumentException ex){
 			ex.printStackTrace();
 		}

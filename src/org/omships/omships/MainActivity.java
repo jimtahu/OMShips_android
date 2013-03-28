@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity {
     static public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     	static final String ARG_PAGE = "ARG_PAGE";
     	static final String[] tabNames =
-    		{"Map", "News/PrayerRequests", "Media","Webcams","Port Schedule"};
+    		{"News/PrayerRequests", "Media","Webcams","Port Schedule", "Map"};
     	FragmentManager fm;
     	
         public SampleFragmentPagerAdapter(FragmentManager fm) {
@@ -134,19 +134,19 @@ public class MainActivity extends FragmentActivity {
             Fragment fragment;
             switch(page){
             case 0:
-            	fragment = setupMap();
-            	break;
-            case 1:
             	fragment = new NewsFeedFragment();
             	break;
-            case 2:
+            case 1:
             	fragment = new MediaFeedFragment();
             	break;
-            case 3:
+            case 2:
             	fragment = new CamListFragment();
             	break;
-            case 4:
+            case 3:
             	fragment = new PortListFragment();
+            	break;
+            case 4:
+            	fragment = setupMap();
             	break;
             default:
             	fragment = new PageFragment();
