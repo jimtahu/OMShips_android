@@ -9,6 +9,6 @@ public class TwitterItem extends FeedItem {
 	}
 	@Override
 	public int getImageResource() {
-		return android.R.drawable.btn_star;
+		return R.drawable.document;
 	}
 }//end class TwitterItem

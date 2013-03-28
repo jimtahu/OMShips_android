@@ -47,8 +47,8 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	 * @return the drawable resource id to draw this item
 	 */
 	public int getImageResource(){
-		if(isImage()) return android.R.drawable.ic_media_pause;
-		return android.R.drawable.sym_action_email;
+		if(isImage()) return R.drawable.photos;
+		return R.drawable.rss_xml;
 	}
 	
 	/**

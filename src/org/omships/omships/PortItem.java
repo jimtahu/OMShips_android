@@ -44,7 +44,10 @@ public class PortItem extends FeedItem {
 	public int compareTo(PortItem arg0) {
 		return this.getArrive().compareTo(arg0.getArrive());
 	}
-
+	@Override
+	public int getImageResource() {
+		return R.drawable.time;
+	}
 	@Override
 	public String toString() {
 		StringBuilder build=new StringBuilder();

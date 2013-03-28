@@ -1,9 +1,13 @@
 OMShips_android
 ===============
 
-Android application for viewing information about the OMShipsLicensed under the zlib license.
+Android application for viewing information about the OMShips Licensed under the zlib license.
 
 Copyright (c) 2013 Operation Mobilisation
+
+Temporary icons borrowed from my Gnome 3 installation.
+
+Icons made by OM and Jacob Hurst.
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages

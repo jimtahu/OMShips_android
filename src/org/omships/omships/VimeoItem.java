@@ -9,7 +9,7 @@ public class VimeoItem extends FeedItem {
 	}
 	@Override
 	public int getImageResource() {
-		return android.R.drawable.ic_media_play;
+		return R.drawable.videos;
 	}
 	@Override
 	public String getDescription() {
