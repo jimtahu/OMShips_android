@@ -1,8 +1,6 @@
 package org.omships.omships;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -14,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 		private SupportMapFragment map;
@@ -36,8 +35,9 @@ class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 			lat=input.nextDouble();
 			input.close();
 			return new LatLng(lat, lng);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
+			Log.e("LOCATION",ex.toString());
+			Log.e("LOCATION",ex.getStackTrace().toString());
 			return null;
 		}
 	}//end doInBackground

@@ -9,8 +9,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import android.util.Log;
-
 /**
  * Class reads port data.
  * @author jimtahu
