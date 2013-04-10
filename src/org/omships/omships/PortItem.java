@@ -46,7 +46,7 @@ public class PortItem extends FeedItem {
 	}
 	@Override
 	public int getImageResource() {
-		return R.drawable.time;
+		return R.drawable.ship;
 	}
 	@Override
 	public String toString() {

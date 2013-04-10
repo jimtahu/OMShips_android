@@ -9,6 +9,6 @@ public class TwitterItem extends FeedItem {
 	}
 	@Override
 	public int getImageResource() {
-		return R.drawable.document;
+		return R.drawable.bird;
 	}
 }//end class TwitterItem

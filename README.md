@@ -5,7 +5,7 @@ Android application for viewing information about the OMShips Licensed under the
 
 Copyright (c) 2013 Operation Mobilisation
 
-Temporary icons borrowed from my Gnome 3 installation.
+RSS Icon from http://commons.wikimedia.org/wiki/RSS_icons
 
 Icons made by OM and Jacob Hurst.
 
