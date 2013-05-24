@@ -54,8 +54,10 @@ public class PortItem extends FeedItem {
 		build.append(getCity());
 		build.append(", ");
 		build.append(getCountry());
-		build.append(" on ");
+		build.append(" \n ");
 		build.append(getArrive());
+		build.append(" to ");
+		build.append(getDepart());
 		return build.toString();
 	}
 }//end PortItem
