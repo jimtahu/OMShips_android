@@ -28,9 +28,9 @@ public class FeedArrayAdapter extends ArrayAdapter<FeedItem> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FeedItem item = getItem(position);
 		convertView = inflater.inflate(R.layout.feedline_layout,null);
-		ImageView iv = (ImageView) convertView.findViewById(R.id.icon_value);
+		//ImageView iv = (ImageView) convertView.findViewById(R.id.icon_value);
 		TextView tv = (TextView) convertView.findViewById(R.id.text_value);
-		iv.setImageResource(item.getImageResource());
+		//iv.setImageResource(item.getImageResource());
 		tv.setText(item.toString());
 		return convertView;
 	}

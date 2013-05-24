@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity {
     static public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     	static final String ARG_PAGE = "ARG_PAGE";
     	static final String[] tabNames =
-    		{"News/PrayerRequests", "Media","Webcams","Port Schedule", "Map"};
+    		{"News/PrayerRequests", "Media","Webcams","Port Schedule", "Location"};
     	FragmentManager fm;
     	
         public SampleFragmentPagerAdapter(FragmentManager fm) {
