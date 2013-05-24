@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Simple case for an item in an "RSS" feed.
@@ -94,8 +95,8 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	public void setPubDate(String date){
 		try {
 			this.pubDate = format.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (ParseException ex) {
+			Log.e("RSS", "Date parsing failed on "+date,ex);
 		}
 	}
 	public String getDescription() {
@@ -134,6 +135,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 
 	@Override
 	public int compareTo(FeedItem arg0) {
+		//Log.e("SORT", "Comparing "+this.getPubDate()+" to "+arg0.getPubDate());
 		return this.getPubDate().compareTo(arg0.getPubDate());
 	}
 

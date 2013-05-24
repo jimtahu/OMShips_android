@@ -48,6 +48,8 @@ public class RssParseHandler extends DefaultHandler {
             currentSub = SubItem.link;
         } else if ("description".equals(qName)){
         	currentSub = SubItem.description;
+        } else if ("pubDate".equals(qName)){
+        	currentSub = SubItem.date;
         }
     }
     // The EndElement method adds the  current RssItem to the list when a closing item tag is processed. It sets appropriate indicators to false -  when title and link closing tags are processed
@@ -61,7 +63,7 @@ public class RssParseHandler extends DefaultHandler {
     }
     // Characters method fills current RssItem object with data when title and link tag content is being processed
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length){
     	switch(currentSub){
     		case title:
     			if (currentItem != null)
