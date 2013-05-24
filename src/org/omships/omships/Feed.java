@@ -11,9 +11,17 @@ public class Feed {
 	}
 	private String url;
 	private Type type;
-	public Feed(){}
+	private int max;
+	
+	public Feed(){max=3;}
 	public Feed(String url){
 		this.url=url;
+	}
+	public int getMax() {
+		return max;
+	}
+	public void setMax(int count) {
+		this.max=count;
 	}
 	public String getUrl() {
 		return url;
@@ -45,15 +53,15 @@ public class Feed {
 	public Reader<FeedItem> getReader(){
 		switch(this.getType()){
 		case rss:
-			return new RSSReader(this.getUrl());
+			return new RSSReader(this.getUrl(),this.getMax());
 		case twitter:
-			return new TwitterReader(this.getUrl());
+			return new TwitterReader(this.getUrl(),this.getMax());
 		case vimeo:
-			return new VimeoReader(this.getUrl());
+			return new VimeoReader(this.getUrl(),this.getMax());
 		case port:
 			return new PortReader(this.getUrl());
 		default:
-			return new RSSReader(this.getUrl());
+			return new RSSReader(this.getUrl(),this.getMax());
 		}
 	}//end getReader
 	

@@ -1,6 +1,8 @@
 package org.omships.omships;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,11 +19,13 @@ import org.xml.sax.SAXException;
 public class RSSReader implements Reader<FeedItem> {
 	// Our class has an attribute which represents RSS Feed URL
     private String rssUrl;
+    private int count;
     /**
      * We set this URL with the constructor
      */
-    public RSSReader(String rssUrl) {
+    public RSSReader(String rssUrl,int count) {
         this.rssUrl = rssUrl;
+        this.count = count;
     }
     /**
      * Get RSS items. This method will be called to get the parsing process result.
@@ -40,6 +44,9 @@ public class RSSReader implements Reader<FeedItem> {
         // We call the method parsing our RSS Feed
         saxParser.parse(rssUrl, handler);
         // The result of the parsing process is being stored in the handler object
-        return handler.getItems();
+        List<FeedItem> items= handler.getItems();
+        Collections.sort(items);
+        //start to last+1
+        return items.subList(0,4);
     }
 }

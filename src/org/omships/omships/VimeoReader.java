@@ -11,9 +11,9 @@ import org.xml.sax.SAXException;
 public class VimeoReader implements Reader<FeedItem> {
 	private RSSReader reader;
 	
-	public VimeoReader(String person){
+	public VimeoReader(String person, int count){
 		String url="http://vimeo.com/"+person+"/videos/rss";
-		this.reader = new RSSReader(url);
+		this.reader = new RSSReader(url,count);
 	}
 	
 	@Override

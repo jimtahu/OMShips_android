@@ -11,9 +11,9 @@ import org.xml.sax.SAXException;
 public class TwitterReader implements Reader<FeedItem> {
 	private RSSReader reader;
 	
-	public TwitterReader(String handle){
+	public TwitterReader(String handle, int count){
 		String url="https://api.twitter.com/1/statuses/user_timeline.rss?screen_name="+handle;
-		this.reader = new RSSReader(url);
+		this.reader = new RSSReader(url,count);
 	}
 	
 	@Override
