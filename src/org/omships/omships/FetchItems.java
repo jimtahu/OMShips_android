@@ -30,11 +30,11 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	}
 	
 	protected void onPreExecute(){
-		if(this.context==null)return;
+		/*if(this.context==null)return;
 		mDialog = new ProgressDialog(context);
         mDialog.setMessage("Loading...");
         mDialog.setCancelable(false);
-        mDialog.show();
+        mDialog.show();*/
 	}
 	
 	@Override
