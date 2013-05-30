@@ -107,7 +107,8 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	}
 	
 	public String toString(){
-		return this.getDescription();
+		if(this.isImage()) return "PHOTO: "+this.getDescription();
+		else return this.getDescription();
 	}
 	@Override
 	public int describeContents() {

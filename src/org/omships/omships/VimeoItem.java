@@ -17,6 +17,6 @@ public class VimeoItem extends FeedItem {
 	}
 	@Override
 	public String toString() {
-		return this.getDescription();
+		return "VIDEO: "+this.getDescription();
 	}
 }//end class VimeoItem
