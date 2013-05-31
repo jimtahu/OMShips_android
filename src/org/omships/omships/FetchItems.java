@@ -6,17 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ListView;
 
 public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	static Map<String, List<FeedItem> > memo = new HashMap<String, List<FeedItem> >();
-	ProgressDialog mDialog;
-	Context context;
-	ListView view;
+	ItemListViewer view;
 	
 	public static void invalidate(Feed feed){
 		if(memo.containsKey(feed.toString()))
@@ -24,17 +19,12 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	}//end invalidate
 	
 	
-	public FetchItems(Context context,ListView view){
-		this.context=context;
+	public FetchItems(ItemListViewer view){
 		this.view=view;
 	}
 	
 	protected void onPreExecute(){
-		/*if(this.context==null)return;
-		mDialog = new ProgressDialog(context);
-        mDialog.setMessage("Loading...");
-        mDialog.setCancelable(false);
-        mDialog.show();*/
+		//nothing to do here for now
 	}
 	
 	@Override
@@ -67,11 +57,8 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	
 	protected void onPostExecute(List<FeedItem> items){
 		try{
-			if(mDialog != null)mDialog.dismiss();
 			if(this.view==null)return;
-			FeedArrayAdapter adapter = new FeedArrayAdapter(context,
-					android.R.layout.simple_list_item_1,items);
-			view.setAdapter(adapter);
+			view.setItems(items);
 		}catch(java.lang.IllegalArgumentException ex){
 			ex.printStackTrace();
 		}

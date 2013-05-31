@@ -1,5 +1,7 @@
 package org.omships.omships;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.support.v4.app.Fragment;
 
-public abstract class FeedFragment extends Fragment {
+public abstract class FeedFragment extends Fragment implements ItemListViewer {
 	
 	abstract Feed[] getFeeds(); 
 	
@@ -41,8 +44,17 @@ public abstract class FeedFragment extends Fragment {
 		super.onStart();
 		Settings.loadConfig(getResources());
 		ListView rssList = (ListView) getView().findViewById(R.id.newslist);
-		new FetchItems(getActivity(),rssList).execute(getFeeds());
+		new FetchItems(this).execute(getFeeds());
 		rssList.setOnItemClickListener(new NewsItemClicked());
 	}
 
-}
+	public void setItems(List<FeedItem> items){
+		ListView rssList = (ListView) getView().findViewById(R.id.newslist);
+		FeedArrayAdapter adapter = new FeedArrayAdapter(getActivity(),
+				android.R.layout.simple_list_item_1,items);
+		rssList.setAdapter(adapter);
+		TextView waitmark = (TextView) getView().findViewById(R.id.waitmark);
+		waitmark.setVisibility(View.GONE);
+	}
+	
+}//end FeedFragment

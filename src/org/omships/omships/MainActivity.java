@@ -27,12 +27,12 @@ public class MainActivity extends FragmentActivity {
 	
 	protected void startPreload(){
 		Settings.loadConfig(getResources());
-		ArrayList<Feed> feedList = new ArrayList<Feed>();
-		feedList.addAll(Settings.getShip().getNews());
-		feedList.addAll(Settings.getShip().getMedia());
-		feedList.add(Settings.getShip().getPorts());
-		new FetchItems(this,null)
-		.execute(feedList.toArray(new Feed[feedList.size()]));
+		//ArrayList<Feed> feedList = new ArrayList<Feed>();
+		//feedList.addAll(Settings.getShip().getNews());
+		//feedList.addAll(Settings.getShip().getMedia());
+		//feedList.add(Settings.getShip().getPorts());
+		//new FetchItems(this,null)
+		//.execute(feedList.toArray(new Feed[feedList.size()]));
 	}
 	
     @Override
