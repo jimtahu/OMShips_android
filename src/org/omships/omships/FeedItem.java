@@ -20,7 +20,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	private Date pubDate;
 	private String description;
 	
-	final static SimpleDateFormat format =
+	public final static SimpleDateFormat format =
 			new SimpleDateFormat("EEE, dd MMM yyyy k:m:s",Locale.US);
 	
 	public FeedItem(){
