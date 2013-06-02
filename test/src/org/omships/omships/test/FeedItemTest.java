@@ -39,14 +39,18 @@ public class FeedItemTest extends AndroidTestCase {
 	 * Test method for {@link org.omships.omships.FeedItem#writeToParcel()}.
 	 */
 	public void testWriteToParcel(){
-		FeedItem item = new FeedItem();
+		FeedItem planet = new FeedItem();
+		planet.setTitle("Google");
+		planet.setLink("http://www.google.com");
+		planet.setDescription("a web page");
+		planet.setPubDate(new Date());
 		Parcel tmp = Parcel.obtain();
-		item.writeToParcel(tmp, 0);
+		planet.writeToParcel(tmp, 0);
 		FeedItem ship = FeedItem.CREATOR.createFromParcel(tmp);
-		assertEquals(item.getTitle(),ship.getTitle());
-		assertEquals(item.getDescription(),ship.getDescription());
-		assertEquals(item.getLink(),ship.getLink());
-		assertEquals(item.getPubDate(),ship.getPubDate());
+		assertEquals(planet.getTitle(),ship.getTitle());
+		assertEquals(planet.getDescription(),ship.getDescription());
+		assertEquals(planet.getLink(),ship.getLink());
+		assertEquals(planet.getPubDate(),ship.getPubDate());
 		tmp.recycle();
 	}
 	
@@ -180,10 +184,10 @@ public class FeedItemTest extends AndroidTestCase {
 		item.setPubDate(format.parse("10 May 2010"));
 		list.add(item);
 		Collections.sort(list);
-		assertEquals("A",list.get(0));
-		assertEquals("B",list.get(1));
-		assertEquals("C",list.get(2));
-		assertEquals("D",list.get(3));
+		assertEquals("A",list.get(0).getTitle());
+		assertEquals("B",list.get(1).getTitle());
+		assertEquals("C",list.get(2).getTitle());
+		assertEquals("D",list.get(3).getTitle());
 	}
 
 }
