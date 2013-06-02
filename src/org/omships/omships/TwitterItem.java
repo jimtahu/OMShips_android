@@ -1,5 +1,8 @@
 package org.omships.omships;
 
+/**
+ * Adds any extended information for Tweets.
+ */
 public class TwitterItem extends FeedItem {
 	public TwitterItem(FeedItem item){
 		this.setTitle(item.getTitle());

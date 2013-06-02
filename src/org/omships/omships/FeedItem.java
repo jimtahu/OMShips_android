@@ -20,6 +20,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	private Date pubDate;
 	private String description;
 	
+	/** This is used to convert between dates and strings. */
 	public final static SimpleDateFormat format =
 			new SimpleDateFormat("EEE, dd MMM yyyy k:m:s",Locale.US);
 	
@@ -30,6 +31,10 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 		this.description = "No news is good news";
 	}
 
+	/**
+	 * Reconstructs a FeedItem from a parcel.
+	 * @param in
+	 */
 	public FeedItem(Parcel in){
 		this.title=in.readString();
 		this.link=in.readString();
@@ -55,6 +60,7 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 	/**
 	 * Checks if the linked item appears to be an image.
 	 * @return
+	 * (Checks for image type filename extension)
 	 */
 	public boolean isImage(){
 		if(this.getLink().endsWith(".jpg"))return true;
@@ -63,6 +69,11 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 		else return false;
 	}
 	
+	/**
+	 * Checks if the linked item appears to be an video.
+	 * @return
+	 * (Checks if vimeo is in the link)
+	 */
 	public boolean isVideo(){
 		if(this.getLink().contains("vimeo"))return true;
 		else return false;
@@ -134,6 +145,11 @@ public class FeedItem implements Parcelable,Comparable<FeedItem>{
 		}
 	};
 
+	/**
+	 * Compares the feed items for natural sorting order.
+	 * @param arg0
+	 * @return negates the compareTo of the date.
+	 */
 	@Override
 	public int compareTo(FeedItem arg0) {
 		//Log.e("SORT", "Comparing "+this.getPubDate()+" to "+arg0.getPubDate());

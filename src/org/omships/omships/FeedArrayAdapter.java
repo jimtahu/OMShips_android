@@ -7,23 +7,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * Constructs slightly more interesting things than TextViews for the list.
  * @author jimtahu
- *
+ * These are used to convert FeedItem lists into Views describing the items,
+ * which are then placed in the list.
  */
 public class FeedArrayAdapter extends ArrayAdapter<FeedItem> {
 	private LayoutInflater inflater;
 	
+	/**
+	 * 
+	 * @param context
+	 * @param textViewResourceId
+	 * @param objects FeedItems to display.
+	 */
 	public FeedArrayAdapter(Context context, int textViewResourceId,
 			List<FeedItem> objects) {
 		super(context, textViewResourceId, objects);
 		inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	/**
+	 * This returns the view created for a given object.
+	 * It is called by our super while it is working, do not use independantly.
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FeedItem item = getItem(position);
@@ -33,6 +43,6 @@ public class FeedArrayAdapter extends ArrayAdapter<FeedItem> {
 		//iv.setImageResource(item.getImageResource());
 		tv.setText(item.toString());
 		return convertView;
-	}
+	}//end getView
 
 }//end class FeedArrayAdapter

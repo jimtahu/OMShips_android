@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * A click listener which starts an Activity when an item is clicked.
+ * @param <T> A parcelable item to display.
+ */
 class ItemClicked<T extends Parcelable> implements OnItemClickListener{
-	/**
-	 * 
-	 */
 	private Activity feedActivity;
 	private Class<?> cls;
 

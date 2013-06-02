@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Fragment showing the list of webcams.
+ */
 public class CamListFragment extends Fragment {
 		
 	@Override

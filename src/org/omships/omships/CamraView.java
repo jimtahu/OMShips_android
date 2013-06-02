@@ -13,6 +13,10 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
+/**
+ * Activity displaying a webcam.
+ * It basically just shows the image from the cam and periodically updates.
+ */
 public class CamraView extends Activity {
 	WebCam camera;
 	ImageView photo;

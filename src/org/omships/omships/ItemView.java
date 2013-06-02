@@ -17,6 +17,9 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 
+/**
+ * An activity which displays a feed item. 
+ */
 public class ItemView extends Activity {
 	FeedItem item;
 	protected WebView webpage;

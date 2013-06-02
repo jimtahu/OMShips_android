@@ -1,5 +1,8 @@
 package org.omships.omships;
 
+/**
+ * Describes a port stop. 
+ */
 public class PortItem extends FeedItem {
 	private String city;
 	private String country;
@@ -41,6 +44,12 @@ public class PortItem extends FeedItem {
 		this.depart = depart;
 	}
 
+	/**
+	 * Natural sorting of port stops.
+	 * @param arg0
+	 * @return
+	 * Based on arrival date.
+	 */
 	public int compareTo(PortItem arg0) {
 		return this.getArrive().compareTo(arg0.getArrive());
 	}

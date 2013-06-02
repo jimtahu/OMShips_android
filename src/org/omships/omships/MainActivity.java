@@ -1,7 +1,5 @@
 package org.omships.omships;
  
-import java.util.ArrayList;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -25,6 +23,9 @@ import android.view.ViewGroup;
  
 public class MainActivity extends FragmentActivity {
 	
+	/**
+	 * Called when the app is loading (in an atempt to preload some items).
+	 */
 	protected void startPreload(){
 		Settings.loadConfig(getResources());
 		//ArrayList<Feed> feedList = new ArrayList<Feed>();

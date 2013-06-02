@@ -9,10 +9,24 @@ import java.util.Map;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * This class Async fetches the items for a feed and posts it to an ItemListViewer.
+ * Once fetched, feeds are cached in a static memo based on url
+ *  and not redownloaded unless they are invalidated.
+ * This means that feeds will be fetched only once per application run.
+ */
 public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	static Map<String, List<FeedItem> > memo = new HashMap<String, List<FeedItem> >();
 	ItemListViewer view;
 	
+	/**
+	 * Removes a feed from the cache.
+	 * @param url
+	 * This removes a feed from the local cache.
+	 * This should not have any negative side effects on existing
+	 *  usages of the feed, but forces it to be redownloaded
+	 *  the next time it is called for.
+	 */
 	public static void invalidate(Feed feed){
 		if(memo.containsKey(feed.toString()))
 			memo.remove(feed.toString());
@@ -27,6 +41,11 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 		//nothing to do here for now
 	}
 	
+	/**
+	 * Downloads the given feeds.
+	 * If more than one feed is asked for, they will be combined.
+	 * Items are sorted before they are returned.
+	 */
 	@Override
 	protected List<FeedItem> doInBackground(Feed... args) {
 		List<FeedItem> items = new ArrayList<FeedItem>();
@@ -56,11 +75,7 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 	}//end doInBackground
 	
 	protected void onPostExecute(List<FeedItem> items){
-		try{
-			if(this.view==null)return;
-			view.setItems(items);
-		}catch(java.lang.IllegalArgumentException ex){
-			ex.printStackTrace();
-		}
+		if(this.view==null)return;
+		view.setItems(items);
 	}
 }//end class FetchItems

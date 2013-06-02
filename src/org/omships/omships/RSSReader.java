@@ -1,7 +1,6 @@
 package org.omships.omships;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class RSSReader implements Reader<FeedItem> {
 	// Our class has an attribute which represents RSS Feed URL
     private String rssUrl;
     private int count;
+    
     /**
      * We set this URL with the constructor
      */
@@ -47,6 +47,6 @@ public class RSSReader implements Reader<FeedItem> {
         List<FeedItem> items= handler.getItems();
         Collections.sort(items);
         //start to last+1
-        return items.subList(0,4);
+        return items.subList(0,count+1);
     }
 }

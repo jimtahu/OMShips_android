@@ -13,10 +13,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 
+/**
+ * Base class for the news and meadia feeds.
+ * @author jimtahu
+ *
+ */
 public abstract class FeedFragment extends Fragment implements ItemListViewer {
 	
+	/**
+	 * Gets the list of feeds for this implementation.
+	 * @return
+	 */
 	abstract Feed[] getFeeds(); 
 	
+	/**
+	 * Handles feed items being clicked.
+	 * Starts an intent based on the item clicked.
+	 */
 	class NewsItemClicked implements OnItemClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> adaptor, View view,
@@ -48,6 +61,11 @@ public abstract class FeedFragment extends Fragment implements ItemListViewer {
 		rssList.setOnItemClickListener(new NewsItemClicked());
 	}
 
+	/**
+	 * Callback for setting the items in the feed.
+	 * @param items 
+	 * This is called by the item fetcher. 
+	 */
 	public void setItems(List<FeedItem> items){
 		ListView rssList = (ListView) getView().findViewById(R.id.newslist);
 		FeedArrayAdapter adapter = new FeedArrayAdapter(getActivity(),

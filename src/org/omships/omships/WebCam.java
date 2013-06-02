@@ -3,6 +3,9 @@ package org.omships.omships;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Describes a WebCam
+ */
 public class WebCam implements Parcelable{
 	String url;
 	String name;

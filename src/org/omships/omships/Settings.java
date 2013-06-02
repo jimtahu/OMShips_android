@@ -7,6 +7,9 @@ import java.util.List;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 
+/**
+ * Singleton style class for holding ship configurations.
+ */
 public class Settings {
 	private static int selected=0;
 	private static List<Ship> ships=null;
@@ -27,6 +30,12 @@ public class Settings {
 		
 	}//end class FetchConfig
 	
+	/**
+	 * Loads the configuration
+	 * @param r
+	 * There is a default config.xml, and we load an updated version
+	 *  from the web when we get the chance. 
+	 */
 	public static void loadConfig(Resources r){
 		if(ships==null){
 			SettingsReader reader = new SettingsReader(r.openRawResource(R.raw.config));
@@ -39,10 +48,18 @@ public class Settings {
 		}//end if
 	}//end loadConfig
 	
+	/**
+	 * Gets a list of all known ships.
+	 * @return
+	 */
 	public static List<Ship> getShips(){
 		return ships;
 	}
 	
+	/**
+	 * Gets the currently selected ship.
+	 * @return
+	 */
 	public static Ship getShip(){
 		return ships.get(selected);
 	}
