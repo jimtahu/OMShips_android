@@ -34,7 +34,7 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 		super.tearDown();
 	}
 
-	public String xml_item(String title,String link,String date, String desc){
+	public String xml_cdata_item(String title,String link,String date, String desc){
 		StringBuffer buff = new StringBuffer();
 		buff.append("<item>");
 		buff.append("<title><![CDATA[").append(title).append("]]></title>");
@@ -47,6 +47,18 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 		return buff.toString();
 	}
 	
+	public String xml_item(String title,String link,String date, String desc){
+		StringBuffer buff = new StringBuffer();
+		buff.append("<item>");
+		buff.append("<title>").append(title).append("</title>");
+		buff.append("<link>").append(link).append("</link>");
+		buff.append("<pubDate>").append(date).append("</pubDate>");
+		buff.append("<description>").append(desc).append("</description>");
+		buff.append("<guid isPermaLink=\"true\">");
+		buff.append(buff.hashCode()).append("</guid>");
+		buff.append("</item>");
+		return buff.toString();
+	}
 	public List<FeedItem> xml_parse(String test) throws ParserConfigurationException, SAXException, IOException{
 		SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
@@ -69,7 +81,8 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 				"A 'postrophe eludes us",
 				"He said \"Quiphobes\" my good sir.",
 				"Kneel before \'Zod\'!",
-				"The \' and \" do not match."
+				"The \' and \" do not match.",
+				"omships: Pray for the Puerto Princesa preparation team as they communicate the news of the ship&#8217;s delay and reschedule events. #omprayer",
 		};
 		String test = XML_HEAD
 				+ xml_item("Apostrophe","http://test.org",
@@ -84,6 +97,9 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 				+ xml_item("Miss-Quotes","http://test.org",
 						"Sun, 28 May 2013 20:15:07 +0000",
 						texts[3])
+				+ xml_item("Puerto Princesa","http://test.org",
+						"Sun, 27 May 2013 20:15:07 +0000",
+						texts[4])
 				+ XML_FOOT;
         List<FeedItem> list = xml_parse(test);
         assertEquals(texts.length, list.size());
