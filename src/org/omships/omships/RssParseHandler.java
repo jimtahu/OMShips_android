@@ -27,6 +27,8 @@ public class RssParseHandler extends DefaultHandler {
     private FeedItem currentItem;
     
     private SubItem currentSub;
+    
+    private StringBuffer currentString;
  
     public RssParseHandler() {
         rssItems = new ArrayList<FeedItem>();
@@ -39,6 +41,7 @@ public class RssParseHandler extends DefaultHandler {
     // The StartElement method creates an empty RssItem object when an item start tag is being processed. When a title or link tag are being processed appropriate indicators are set to true.
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    	currentString = new StringBuffer();
         if ("item".equals(qName)) {
             currentItem = new FeedItem();
             currentSub = SubItem.none;
@@ -55,33 +58,36 @@ public class RssParseHandler extends DefaultHandler {
     // The EndElement method adds the  current RssItem to the list when a closing item tag is processed. It sets appropriate indicators to false -  when title and link closing tags are processed
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if ("item".equals(qName)) {
-            rssItems.add(currentItem);
-            currentItem = null;
-        } 
-        currentSub = SubItem.none;
+		switch (currentSub) {
+		case title:
+			if (currentItem != null)
+				currentItem.setTitle(currentString.toString());
+			break;
+		case link:
+			if (currentItem != null)
+				currentItem.setLink(currentString.toString());
+			break;
+		case description:
+			if (currentItem != null)
+				currentItem.setDescription(currentString.toString());
+			break;
+		case date:
+			if (currentItem != null)
+				currentItem.setPubDate(currentString.toString());
+		default:
+			break;
+		}
+		currentString = null;
+		if ("item".equals(qName)) {
+			rssItems.add(currentItem);
+			currentItem = null;
+		}
+		currentSub = SubItem.none;
     }
     // Characters method fills current RssItem object with data when title and link tag content is being processed
     @Override
     public void characters(char[] ch, int start, int length){
-    	switch(currentSub){
-    		case title:
-    			if (currentItem != null)
-                    currentItem.setTitle(new String(ch, start, length));
-    			break;
-    		case link:
-    			if (currentItem != null)
-                    currentItem.setLink(new String(ch, start, length));
-                break;
-    		case description:
-    			if (currentItem != null)
-                    currentItem.setDescription(new String(ch, start, length));
-    			break;
-    		case date:
-    			if (currentItem != null)
-    				currentItem.setPubDate(new String(ch, start, length));
-		default:
-			break;
-        }//end switch
+    	if(currentString!=null)
+    		currentString.append(new String(ch, start, length));
     }//end characters
 }//end class
