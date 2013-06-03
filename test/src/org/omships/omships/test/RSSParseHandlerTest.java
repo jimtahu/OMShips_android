@@ -47,32 +47,47 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 		return buff.toString();
 	}
 	
-	public void testGetItems() {
-		fail("Not yet implemented");
+	public List<FeedItem> xml_parse(String test) throws ParserConfigurationException, SAXException, IOException{
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser saxParser = factory.newSAXParser();
+        RssParseHandler handler = new RssParseHandler();     
+        saxParser.parse(new ByteArrayInputStream(test.getBytes()), handler);
+        return handler.getItems();
 	}
 	
 	public void testSmoke() throws ParserConfigurationException, SAXException, IOException {
-		/*
-		String test = XML_HEAD
-				+"<item>"
-+"<title><![CDATA[Test Item]]></title>"
-+"<link><![CDATA[http://test.org]]></link>"
-+"<guid isPermaLink=\"true\"><![CDATA[R35879]]></guid>"
-+"<pubDate><![CDATA[Sun, 31 May 2013 20:15:07 +0000]]></pubDate>"
-+"<description><![CDATA[A smoke test of the parser]]></description>"
-+"</item>"
-				+XML_FOOT;
-				*/
 		String test = XML_HEAD
 				+ xml_item("Test Item","http://test.org",
 						"Sun, 31 May 2013 20:15:07 +0000",
 						"A smoke test of the parser")
 				+ XML_FOOT;
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser saxParser = factory.newSAXParser();
-        RssParseHandler handler = new RssParseHandler();     
-        saxParser.parse(new ByteArrayInputStream(test.getBytes()), handler);
-        List<FeedItem> list = handler.getItems();
-        assertEquals(1, list.size());
+        assertEquals(1, xml_parse(test).size());
 	}
+	
+	public void testStringMarks() throws ParserConfigurationException, SAXException, IOException {
+		String texts[] = {
+				"A 'postrophe eludes us",
+				"He said \"Quiphobes\" my good sir.",
+				"Kneel before \'Zod\'!",
+				"The \' and \" do not match."
+		};
+		String test = XML_HEAD
+				+ xml_item("Apostrophe","http://test.org",
+						"Sun, 31 May 2013 20:15:07 +0000",
+						texts[0])
+				+ xml_item("String String","http://test.org",
+						"Sun, 30 May 2013 20:15:07 +0000",
+						texts[1])
+				+ xml_item("Single String","http://test.org",
+						"Sun, 29 May 2013 20:15:07 +0000",
+						texts[2])
+				+ xml_item("Miss-Quotes","http://test.org",
+						"Sun, 28 May 2013 20:15:07 +0000",
+						texts[3])
+				+ XML_FOOT;
+        List<FeedItem> list = xml_parse(test);
+        assertEquals(texts.length, list.size());
+        for(int i=0;i<texts.length;i++)
+        	assertEquals(texts[i],list.get(i).getDescription());
+	}//end testStringMarks
 }
