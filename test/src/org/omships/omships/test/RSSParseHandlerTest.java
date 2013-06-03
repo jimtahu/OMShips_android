@@ -2,6 +2,7 @@ package org.omships.omships.test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -74,6 +75,30 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 						"A smoke test of the parser")
 				+ XML_FOOT;
         assertEquals(1, xml_parse(test).size());
+	}
+	
+	public void testParsing() throws ParserConfigurationException, SAXException, IOException, ParseException{
+		String test = XML_HEAD
+				+xml_item("Da Title","http://link.org",
+				 "Sun, 31 May 2013 20:15:07 +0000","A generic description")
+				 +xml_cdata_item("Da Title","http://link.org",
+				 "Sun, 31 May 2013 20:15:07 +0000","A generic description")
+				+XML_FOOT;
+		List<FeedItem> list = xml_parse(test);
+		assertEquals("Da Title",list.get(0).getTitle());
+		assertEquals("http://link.org",list.get(0).getLink());
+		assertEquals("A generic description",list.get(0).getDescription());
+		assertEquals(0,
+				list.get(0).getPubDate().compareTo(
+					FeedItem.format.parse("Sun, 31 May 2013 20:15:07 +0000"))
+				);
+		assertEquals("Da Title",list.get(1).getTitle());
+		assertEquals("http://link.org",list.get(1).getLink());
+		assertEquals("A generic description",list.get(1).getDescription());
+		assertEquals(0,
+				list.get(1).getPubDate().compareTo(
+					FeedItem.format.parse("Sun, 31 May 2013 20:15:07 +0000"))
+				);
 	}
 	
 	public void testStringMarks() throws ParserConfigurationException, SAXException, IOException {
