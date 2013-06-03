@@ -56,10 +56,10 @@ class FetchImage extends AsyncTask<String, Void, Bitmap>{
 					new BufferedInputStream(new URL(urls[0]).openStream()));
 			memo.put(urls[0],image);
 			return image;
-		} catch (MalformedURLException e) {
-			Log.e("IMAGE", e.toString());
-		} catch (IOException e) {
-			Log.e("IMAGE", e.toString());
+		} catch (MalformedURLException ex) {
+			Log.e("IMAGE", ex.toString(), ex);
+		} catch (IOException ex) {
+			Log.e("IMAGE", ex.toString(), ex);
 		}
 		return null;
 	}//end doInBackground

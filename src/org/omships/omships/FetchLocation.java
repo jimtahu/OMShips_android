@@ -36,8 +36,7 @@ class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 			input.close();
 			return new LatLng(lat, lng);
 		} catch (Exception ex) {
-			Log.e("LOCATION",ex.toString());
-			Log.e("LOCATION",ex.getStackTrace().toString());
+			Log.e("LOCATION",ex.toString(),ex);
 			return null;
 		}
 	}//end doInBackground

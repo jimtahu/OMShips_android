@@ -53,19 +53,19 @@ public class FetchItems extends AsyncTask<Feed,Integer,List<FeedItem> > {
 			List<FeedItem> feed_items=null;
 			if(memo.containsKey(feed.toString())){
 				feed_items=memo.get(feed.toString());
-				Log.e("XMLP","Cache hit on "+feed.toString()
+				Log.i("XMLP","Cache hit on "+feed.toString()
 						+" found "+feed_items.size()+" items");
 			}else{
 				try {
-					Log.e("XMLP","Fetching "+feed.toString());
+					Log.i("XMLP","Fetching "+feed.toString());
 					Reader<FeedItem> reader = feed.getReader();
 					feed_items=reader.getItems();
 					if(feed_items!=null && feed_items.size()>0)
 						memo.put(feed.toString(),feed_items);
-		            Log.e("XMLP","Fetch on "+feed.toString()
+		            Log.i("XMLP","Fetch on "+feed.toString()
 						+" found "+feed_items.size()+" items");
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception ex) {
+					Log.e("XMLP", ex.toString(), ex);
 				}
 			}//end if memo'd
 			if(feed_items!=null)items.addAll(feed_items);
