@@ -109,24 +109,25 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 				"The \' and \" do not match.",
 				"omships: Pray for the Puerto Princesa preparation team as they communicate the news of the ship&#8217;s delay and reschedule events. #omprayer",
 		};
-		String test = XML_HEAD
-				+ xml_item("Apostrophe","http://test.org",
+		StringBuffer test=new StringBuffer();
+		test.append(XML_HEAD);
+		test.append(xml_item("Apostrophe","http://test.org",
 						"Sun, 31 May 2013 20:15:07 +0000",
-						texts[0])
-				+ xml_item("String String","http://test.org",
+						texts[0]));
+		test.append(xml_item("String String","http://test.org",
 						"Sun, 30 May 2013 20:15:07 +0000",
-						texts[1])
-				+ xml_item("Single String","http://test.org",
+						texts[1]));
+		test.append(xml_item("Single String","http://test.org",
 						"Sun, 29 May 2013 20:15:07 +0000",
-						texts[2])
-				+ xml_item("Miss-Quotes","http://test.org",
+						texts[2]));
+		test.append(xml_item("Miss-Quotes","http://test.org",
 						"Sun, 28 May 2013 20:15:07 +0000",
-						texts[3])
-				+ xml_item("Puerto Princesa","http://test.org",
+						texts[3]));
+		test.append(xml_item("Puerto Princesa","http://test.org",
 						"Sun, 27 May 2013 20:15:07 +0000",
-						texts[4])
-				+ XML_FOOT;
-        List<FeedItem> list = xml_parse(test);
+						texts[4]));
+		test.append(XML_FOOT);
+        List<FeedItem> list = xml_parse(test.toString());
         assertEquals(texts.length, list.size());
         for(int i=0;i<texts.length;i++)
         	assertEquals(texts[i],list.get(i).getDescription());
