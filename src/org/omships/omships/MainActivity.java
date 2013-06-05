@@ -89,10 +89,8 @@ public class MainActivity extends FragmentActivity {
         return haveConnectedWifi || haveConnectedMobile;
     }
  
-    static public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+    public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     	static final String ARG_PAGE = "ARG_PAGE";
-    	static final String[] tabNames =
-    		{"News/PrayerRequests", "Media","Webcams","Port Schedule", "Location"};
     	FragmentManager fm;
     	
         public SampleFragmentPagerAdapter(FragmentManager fm) {
@@ -118,7 +116,7 @@ public class MainActivity extends FragmentActivity {
         
         @Override
         public CharSequence getPageTitle(int position) {
-        	return tabNames[position];
+        	return getResources().getStringArray(R.array.tab_names)[position];
         }
         
         public SupportMapFragment setupMap(){
