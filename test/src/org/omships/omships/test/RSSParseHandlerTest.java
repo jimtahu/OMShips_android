@@ -107,6 +107,7 @@ public class RSSParseHandlerTest extends AndroidTestCase {
 				"He said \"Quiphobes\" my good sir.",
 				"Kneel before \'Zod\'!",
 				"The \' and \" do not match.",
+				/** TODO: Fix this test so that is checks, since the test is wrong (the char below should be translated*/
 				"omships: Pray for the Puerto Princesa preparation team as they communicate the news of the ship&#8217;s delay and reschedule events. #omprayer",
 		};
 		StringBuffer test=new StringBuffer();

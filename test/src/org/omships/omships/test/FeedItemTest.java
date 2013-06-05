@@ -46,11 +46,12 @@ public class FeedItemTest extends AndroidTestCase {
 		planet.setPubDate(new Date());
 		Parcel tmp = Parcel.obtain();
 		planet.writeToParcel(tmp, 0);
+		tmp.setDataPosition(0);
 		FeedItem ship = FeedItem.CREATOR.createFromParcel(tmp);
 		assertEquals(planet.getTitle(),ship.getTitle());
 		assertEquals(planet.getDescription(),ship.getDescription());
 		assertEquals(planet.getLink(),ship.getLink());
-		assertEquals(planet.getPubDate(),ship.getPubDate());
+		assertEquals(planet.getPubDate().toString(),ship.getPubDate().toString());
 		tmp.recycle();
 	}
 	
@@ -122,10 +123,10 @@ public class FeedItemTest extends AndroidTestCase {
 		FeedItem item = new FeedItem();
 		Date now = new Date();
 		item.setPubDate(now);
-		assertEquals(0, now.compareTo(item.getPubDate()));
+		assertEquals(now.toString(),item.getPubDate().toString());
 		item = new FeedItem();
 		item.setPubDate(FeedItem.format.format(now));
-		assertEquals(0, now.compareTo(item.getPubDate()));
+		assertEquals(now.toString(),item.getPubDate().toString());
 	}
 
 	/**
@@ -154,14 +155,7 @@ public class FeedItemTest extends AndroidTestCase {
 		item.setLink("http://www.google.com/photo.png");
 		assertEquals("PHOTO: "+"a web page",item.toString());
 	}
-
-	/**
-	 * Test method for {@link org.omships.omships.FeedItem#describeContents()}.
-	 */
-	public void testDescribeContents() {
-		fail("Not yet implemented");
-	}
-
+	
 	/**
 	 * Test method for {@link org.omships.omships.FeedItem#compareTo(org.omships.omships.FeedItem)}.
 	 * @throws ParseException 
@@ -174,12 +168,15 @@ public class FeedItemTest extends AndroidTestCase {
 		item.setTitle("D");
 		item.setPubDate(format.parse("07 May 2010"));
 		list.add(item);
+		item= new FeedItem();
 		item.setTitle("B");
 		item.setPubDate(format.parse("09 May 2010"));
 		list.add(item);
+		item= new FeedItem();
 		item.setTitle("C");
 		item.setPubDate(format.parse("08 May 2010"));
 		list.add(item);
+		item= new FeedItem();
 		item.setTitle("A");
 		item.setPubDate(format.parse("10 May 2010"));
 		list.add(item);
