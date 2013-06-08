@@ -27,7 +27,7 @@ public class CamraView extends Activity {
 	private Runnable runUpdate = new Runnable() {
 		@Override
 		public void run() {
-			FetchImage.invalidate(camera.getUrl());
+			ImageBank.invalidate(camera.getUrl());
 			new FetchImage(photo).execute(camera.getUrl());
 		}
 	};
