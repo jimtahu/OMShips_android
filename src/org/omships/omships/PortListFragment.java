@@ -29,5 +29,6 @@ public class PortListFragment extends Fragment implements ItemListViewer {
 		FeedArrayAdapter adapter = new FeedArrayAdapter(getActivity(),
 				android.R.layout.simple_list_item_1,items);
 		portList.setAdapter(adapter);
+		portList.setEnabled(false);
 	}
 }//end CamListActivity
