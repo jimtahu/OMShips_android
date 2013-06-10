@@ -39,6 +39,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageBank.setContext(getApplicationContext());
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         
