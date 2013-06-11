@@ -1,5 +1,11 @@
 package org.omships.omships.test;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
+
+import org.omships.omships.FeedItem;
 import org.omships.omships.PortItem;
 
 import android.test.AndroidTestCase;
@@ -95,7 +101,30 @@ public class PortItemTest extends AndroidTestCase {
 	}
 
 	public void testCompareToPortItem() {
-		fail("Not yet implemented");
+		SimpleDateFormat format =
+				new SimpleDateFormat("dd MMM yyyy",Locale.US);
+		ArrayList<PortItem> list = new ArrayList<PortItem>();
+		PortItem item = new PortItem();
+		item.setCity("D");
+		item.setArrive("07 May 2010");
+		list.add(item);
+		item= new PortItem();
+		item.setCity("B");
+		item.setArrive("09 May 2010");
+		list.add(item);
+		item= new PortItem();
+		item.setCity("C");
+		item.setArrive("08 May 2010");
+		list.add(item);
+		item= new PortItem();
+		item.setCity("A");
+		item.setArrive("10 May 2010");
+		list.add(item);
+		Collections.sort(list);
+		assertEquals("A",list.get(0).getCity());
+		assertEquals("B",list.get(1).getCity());
+		assertEquals("C",list.get(2).getCity());
+		assertEquals("D",list.get(3).getCity());
 	}
 
 }
