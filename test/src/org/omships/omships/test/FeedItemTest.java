@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
-import org.omships.omships.FeedItem;
+import org.omships.omships.datatypes.FeedItem;
 
 import android.os.Parcel;
 import android.test.AndroidTestCase;
@@ -36,7 +36,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#writeToParcel()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#writeToParcel()}.
 	 */
 	public void testWriteToParcel(){
 		FeedItem planet = new FeedItem();
@@ -56,7 +56,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 	
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#isImage()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#isImage()}.
 	 */
 	public void testIsImage() {
 		FeedItem item = new FeedItem();
@@ -71,7 +71,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#isVideo()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#isVideo()}.
 	 */
 	public void testIsVideo() {
 		FeedItem item = new FeedItem();
@@ -82,7 +82,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#isWebPage()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#isWebPage()}.
 	 */
 	public void testIsWebPage() {
 		FeedItem item = new FeedItem();
@@ -91,7 +91,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#getTitle()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#getTitle()}.
 	 */
 	public void testGetTitle() {
 		String titles[] = {
@@ -105,7 +105,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#getLink()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#getLink()}.
 	 */
 	public void testGetLink() {
 		String links[] = {"http://www.google.com","https://www.google.com"};
@@ -117,7 +117,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#getPubDate()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#getPubDate()}.
 	 */
 	public void testGetPubDate() {
 		FeedItem item = new FeedItem();
@@ -130,7 +130,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#getDescription()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#getDescription()}.
 	 */
 	public void testGetDescription() {
 		String words[] = {
@@ -144,7 +144,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#toString()}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#toString()}.
 	 */
 	public void testToString() {
 		FeedItem item = new FeedItem();
@@ -157,7 +157,7 @@ public class FeedItemTest extends AndroidTestCase {
 	}
 	
 	/**
-	 * Test method for {@link org.omships.omships.FeedItem#compareTo(org.omships.omships.FeedItem)}.
+	 * Test method for {@link org.omships.omships.datatypes.FeedItem#compareTo(org.omships.omships.datatypes.FeedItem)}.
 	 * @throws ParseException 
 	 */
 	public void testCompareTo() throws ParseException {

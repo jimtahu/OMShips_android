@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-import org.omships.omships.FeedItem;
-import org.omships.omships.PortItem;
+import org.omships.omships.datatypes.PortItem;
 
 import android.test.AndroidTestCase;
 

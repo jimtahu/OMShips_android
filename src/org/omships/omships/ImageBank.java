@@ -20,7 +20,7 @@ import android.util.Log;
 public class ImageBank {
 	static Context context;
 	
-	static void setContext(Context con){
+	public static void setContext(Context con){
 		context = con;
 	}
 	
@@ -82,7 +82,7 @@ public class ImageBank {
 	 * @param url url of the image.
 	 * @return An image as a Bitmap.
 	 */
-	static Bitmap getImage(String url){
+	public static Bitmap getImage(String url){
 		try {
 			Bitmap image = BitmapFactory.decodeStream(
 					new BufferedInputStream(

@@ -4,6 +4,9 @@ import java.io.BufferedInputStream;
 import java.net.URL;
 import java.util.List;
 
+import org.omships.omships.datatypes.Ship;
+import org.omships.omships.parse.SettingsReader;
+
 import android.content.res.Resources;
 import android.os.AsyncTask;
 
