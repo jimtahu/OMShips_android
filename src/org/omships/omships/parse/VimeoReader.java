@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.omships.omships.datatypes.Feed;
 import org.omships.omships.datatypes.FeedItem;
 import org.omships.omships.datatypes.VimeoItem;
 import org.xml.sax.SAXException;
@@ -13,9 +14,8 @@ import org.xml.sax.SAXException;
 public class VimeoReader implements Reader<FeedItem> {
 	private RSSReader reader;
 	
-	public VimeoReader(String person, int count){
-		String url="http://vimeo.com/"+person+"/videos/rss";
-		this.reader = new RSSReader(url,count);
+	public VimeoReader(Feed input){
+		this.reader = new RSSReader(input);
 	}
 	
 	@Override

@@ -1,5 +1,11 @@
 package org.omships.omships.datatypes;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.omships.omships.parse.PortReader;
 import org.omships.omships.parse.RSSReader;
 import org.omships.omships.parse.Reader;
@@ -45,6 +51,19 @@ public class Feed {
 	 */
 	public void setMax(int count) {
 		this.max=count;
+	}
+	public InputStream getStream() throws MalformedURLException, IOException{
+		if(this.getType().equals(Type.twitter)){
+			return new BufferedInputStream(new URL(
+					"https://api.twitter.com/1/statuses/user_timeline.rss?screen_name="
+					+getUrl()).openStream());
+		}else if(this.getType().equals(Type.vimeo)){
+			return new BufferedInputStream(
+					new URL("http://vimeo.com/"+getUrl()+"/videos/rss")
+					.openStream());
+		}else{
+			return new BufferedInputStream(new URL(getUrl()).openStream());
+		}
 	}
 	public String getUrl() {
 		return url;
@@ -95,15 +114,15 @@ public class Feed {
 	public Reader<FeedItem> getReader(){
 		switch(this.getType()){
 		case rss:
-			return new RSSReader(this.getUrl(),this.getMax());
+			return new RSSReader(this);
 		case twitter:
-			return new TwitterReader(this.getUrl(),this.getMax());
+			return new TwitterReader(this);
 		case vimeo:
-			return new VimeoReader(this.getUrl(),this.getMax());
+			return new VimeoReader(this);
 		case port:
-			return new PortReader(this.getUrl());
+			return new PortReader(this);
 		default:
-			return new RSSReader(this.getUrl(),this.getMax());
+			return new RSSReader(this);
 		}
 	}//end getReader
 	

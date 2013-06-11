@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.omships.omships.datatypes.Feed;
 import org.omships.omships.datatypes.FeedItem;
 import org.omships.omships.datatypes.TwitterItem;
 import org.xml.sax.SAXException;
@@ -13,9 +14,8 @@ import org.xml.sax.SAXException;
 public class TwitterReader implements Reader<FeedItem> {
 	private RSSReader reader;
 	
-	public TwitterReader(String handle, int count){
-		String url="https://api.twitter.com/1/statuses/user_timeline.rss?screen_name="+handle;
-		this.reader = new RSSReader(url,count);
+	public TwitterReader(Feed input){
+		this.reader = new RSSReader(input);
 	}
 	
 	@Override

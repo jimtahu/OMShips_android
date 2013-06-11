@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.omships.omships.datatypes.Feed;
 import org.omships.omships.datatypes.FeedItem;
 import org.xml.sax.SAXException;
 
@@ -17,16 +18,13 @@ import org.xml.sax.SAXException;
  * From http://www.itcuties.com/android/how-to-write-android-rss-parser/
  */
 public class RSSReader implements Reader<FeedItem> {
-	// Our class has an attribute which represents RSS Feed URL
-    private String rssUrl;
-    private int count;
+    private Feed feed;
     
     /**
      * We set this URL with the constructor
      */
-    public RSSReader(String rssUrl,int count) {
-        this.rssUrl = rssUrl;
-        this.count = count;
+    public RSSReader(Feed input) {
+        this.feed = input;
     }
     /**
      * Get RSS items. This method will be called to get the parsing process result.
@@ -43,11 +41,11 @@ public class RSSReader implements Reader<FeedItem> {
         // We need the SAX parser handler object
         RssParseHandler handler = new RssParseHandler();
         // We call the method parsing our RSS Feed
-        saxParser.parse(rssUrl, handler);
+        saxParser.parse(feed.getStream(), handler);
         // The result of the parsing process is being stored in the handler object
         List<FeedItem> items= handler.getItems();
         Collections.sort(items);
         //start to last+1
-        return items.subList(0,count+1);
+        return items.subList(0,feed.getMax()+1);
     }
 }

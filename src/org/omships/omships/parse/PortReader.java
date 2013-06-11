@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.omships.omships.datatypes.Feed;
 import org.omships.omships.datatypes.FeedItem;
 import org.xml.sax.SAXException;
 
@@ -15,17 +16,17 @@ import org.xml.sax.SAXException;
  * @author jimtahu
  */
 public class PortReader implements Reader<FeedItem> {
-    private String url;
+    private Feed feed;
 
-    public PortReader(String url) {
-        this.url = url;
+    public PortReader(Feed input) {
+        this.feed = input;
     }
     
     public List<FeedItem> getItems() throws ParserConfigurationException, SAXException, IOException{
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
         PortParseHandler handler = new PortParseHandler();
-        saxParser.parse(url, handler);
+        saxParser.parse(feed.getStream(), handler);
         // The result of the parsing process is being stored in the handler object
         return handler.getItems();
     }
