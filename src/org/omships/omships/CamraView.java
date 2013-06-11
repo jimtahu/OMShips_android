@@ -51,12 +51,13 @@ public class CamraView extends Activity {
 		photo = (ImageView) findViewById(R.id.photo);
 		new FetchImage(photo).execute(camera.getUrl());
 		Timer updateTimer = new Timer();
-		updateTimer.schedule(new TimerTask() {
+		updateTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				TimerClick();
 			}
-		}, camera.getUpdate(), camera.getUpdate());
+			//camera is in seconds, and timer is in mS
+		}, camera.getUpdate()*1000, camera.getUpdate()*1000);
 	}
 
 	/**

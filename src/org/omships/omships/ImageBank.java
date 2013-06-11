@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +33,7 @@ public class ImageBank {
 	 *  the next time it is called for.
 	 */
 	public static void invalidate(String url){
+		Log.i("IMAGE", "Invalidating "+hashURL(url));
 		context.deleteFile(hashURL(url));
 	}//end invalidate
 	
@@ -90,6 +88,7 @@ public class ImageBank {
 					new BufferedInputStream(
 							context.openFileInput(hashURL(url))
 					));
+			Log.i("IMAGE","Cache hit on "+hashURL(url));
 			return image;
 		} catch (FileNotFoundException ex){
 			saveImage(url);
