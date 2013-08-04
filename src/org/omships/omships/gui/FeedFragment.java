@@ -41,13 +41,14 @@ public abstract class FeedFragment extends Fragment implements ItemListViewer {
 		public void onItemClick(AdapterView<?> adaptor, View view,
 				int postion, long id) {
 			FeedItem item = (FeedItem) adaptor.getItemAtPosition(postion);
+			if(null == item) return;
 			Intent intent;
 			if(item.isVideo())
 				intent = new Intent(getActivity().getApplicationContext(), VideoView.class);
 			else if(item.isWebPage())
 				intent = new Intent(getActivity().getApplicationContext(), WebPageView.class);
 			else
-				intent = new Intent(getActivity().getApplicationContext(),ItemView.class);
+				intent = new Intent(getActivity().getApplicationContext(), ItemView.class);
 			intent.putExtra("item",item);
 			startActivity(intent);
 		}
