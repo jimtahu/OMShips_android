@@ -6,14 +6,12 @@ import org.omships.omships.datatypes.FeedItem;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
