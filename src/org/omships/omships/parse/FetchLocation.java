@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.net.URL;
 import java.util.Scanner;
 
+import org.omships.omships.R;
 import org.omships.omships.Settings;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -46,7 +48,14 @@ public class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 	protected void onPostExecute(LatLng pos){
 		GoogleMap daMap =map.getMap(); 
 		if(daMap==null)return;
-		if(pos==null)return;
+		if(pos==null){
+			Dialog error = new Dialog(map.getActivity());
+			error.setTitle(R.string.location_fail_message);
+			error.setCancelable(true);
+			error.setCanceledOnTouchOutside(true);
+			error.show();
+			return;
+		}
 		daMap.addMarker(new MarkerOptions()
         .position(pos)
         .title(Settings.getShip().getName()));

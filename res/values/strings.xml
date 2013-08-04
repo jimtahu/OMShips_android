@@ -15,6 +15,7 @@
 	<string name="alert_title">No Internet Connection!</string>
 	<string name="loading_items">Loading items, please wait</string>
 	<string name="medialink">http://logoshope.tv</string>
+	<string name="location_fail_message">Failed to locate ship.</string>
 	<string-array name="tab_names">
 	    <item>News/PrayerRequests</item>
 	    <item>Media</item>
