@@ -1,12 +1,16 @@
 package org.omships.omships;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,10 +24,15 @@ import android.util.Log;
 public class FileBank {
 	static Context context;
 	
+	/**
+	 * Sets the context we are working in
+	 * (needed for access to cacheDir)
+	 * @param con
+	 */
 	public static void setContext(Context con){
 		context = con;
 	}
-	
+		
 	/**
 	 * Removes a item from the cache.
 	 * @param url
@@ -34,8 +43,20 @@ public class FileBank {
 	 */
 	public static void invalidate(String url){
 		Log.i("FILEBANK", "Invalidating "+hashURL(url));
-		context.deleteFile(hashURL(url));
+		new File(context.getCacheDir(), hashURL(url)).delete();
 	}//end invalidate
+
+	/**
+	 * Removes files older than a given date.
+	 * @param old
+	 */
+	public static void cleanOldFiles(Date old){
+		for(File item:context.getCacheDir().listFiles()){
+			Date last = new Date(item.lastModified());
+			if(last.before(old))
+				item.delete();
+		}
+	}//end cleanOldFiles
 	
 	/**
 	 * Processes the url into something which will not have magic char.
@@ -54,7 +75,7 @@ public class FileBank {
 		int count=1,size=0;
 		byte buffer[] = new byte[0x100];
 		try {
-			FileOutputStream fos =  context.openFileOutput(hashURL(url), Context.MODE_PRIVATE);
+			FileOutputStream fos =  new FileOutputStream(new File(context.getCacheDir(), hashURL(url)));
 			InputStream input = new BufferedInputStream(new URL(url).openStream());
 			Log.i("FILEBANK","Saveing "+hashURL(url));
 			while(true){
@@ -77,11 +98,16 @@ public class FileBank {
 		}
 	}//end saveImage
 	
+	/**
+	 * Opens a stream for the given url,
+	 * saving to disk if needed.
+	 * @param url
+	 * @return
+	 */
 	public static InputStream openStream(String url){
 		try {
-			InputStream stream= new BufferedInputStream(
-							context.openFileInput(hashURL(url))
-					);
+			File f = new File(context.getCacheDir(), hashURL(url));
+			InputStream stream= new BufferedInputStream(new FileInputStream(f));
 			Log.i("FILEBANK","Cache hit on "+hashURL(url));
 			return stream;
 		} catch (FileNotFoundException ex){
