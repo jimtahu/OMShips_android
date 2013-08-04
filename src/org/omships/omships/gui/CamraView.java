@@ -3,7 +3,7 @@ package org.omships.omships.gui;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.omships.omships.ImageBank;
+import org.omships.omships.FileBank;
 import org.omships.omships.R;
 import org.omships.omships.datatypes.WebCam;
 import org.omships.omships.parse.FetchImage;
@@ -29,7 +29,7 @@ public class CamraView extends Activity {
 	private Runnable runUpdate = new Runnable() {
 		@Override
 		public void run() {
-			ImageBank.invalidate(camera.getUrl());
+			FileBank.invalidate(camera.getUrl());
 			new FetchImage(photo).execute(camera.getUrl());
 		}
 	};

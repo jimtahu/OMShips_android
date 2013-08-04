@@ -1,11 +1,9 @@
 package org.omships.omships.datatypes;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
-
+import org.omships.omships.FileBank;
 import org.omships.omships.parse.PortReader;
 import org.omships.omships.parse.RSSReader;
 import org.omships.omships.parse.Reader;
@@ -54,15 +52,13 @@ public class Feed {
 	}
 	public InputStream getStream() throws MalformedURLException, IOException{
 		if(this.getType().equals(Type.twitter)){
-			return new BufferedInputStream(new URL(
+			return FileBank.openStream(
 					"https://api.twitter.com/1/statuses/user_timeline.rss?screen_name="
-					+getUrl()).openStream());
+					+getUrl());
 		}else if(this.getType().equals(Type.vimeo)){
-			return new BufferedInputStream(
-					new URL("http://vimeo.com/"+getUrl()+"/videos/rss")
-					.openStream());
+			return FileBank.openStream("http://vimeo.com/"+getUrl()+"/videos/rss");
 		}else{
-			return new BufferedInputStream(new URL(getUrl()).openStream());
+			return FileBank.openStream(getUrl());
 		}
 	}
 	public String getUrl() {

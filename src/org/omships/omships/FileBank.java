@@ -13,11 +13,11 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 /**
- * Methods for providing/caching images.
+ * Methods for providing/caching files.
  * @author jimtahu
  *
  */
-public class ImageBank {
+public class FileBank {
 	static Context context;
 	
 	public static void setContext(Context con){
@@ -25,20 +25,20 @@ public class ImageBank {
 	}
 	
 	/**
-	 * Removes an image from the cache.
+	 * Removes a item from the cache.
 	 * @param url
-	 * This removes an image from the local cache.
+	 * This removes a item from the local cache.
 	 * This should not have any negative side effects on existing
-	 *  usages of the image, but forces the image to be redownloaded
+	 *  usages of the image/feed, but forces the item to be redownloaded
 	 *  the next time it is called for.
 	 */
 	public static void invalidate(String url){
-		Log.i("IMAGE", "Invalidating "+hashURL(url));
+		Log.i("FILEBANK", "Invalidating "+hashURL(url));
 		context.deleteFile(hashURL(url));
 	}//end invalidate
 	
 	/**
-	 * Processes the image url into something which will not have magic char.
+	 * Processes the url into something which will not have magic char.
 	 * @param url a url 
 	 * @return a string corosponding to the url
 	 */
@@ -47,16 +47,16 @@ public class ImageBank {
 	}
 	
 	/**
-	 * Saves an image to disk from the url.
+	 * Saves a file to disk from the url.
 	 * @param url
 	 */
-	static void saveImage(String url){
+	static void saveFile(String url){
 		int count=1,size=0;
 		byte buffer[] = new byte[0x100];
 		try {
 			FileOutputStream fos =  context.openFileOutput(hashURL(url), Context.MODE_PRIVATE);
 			InputStream input = new BufferedInputStream(new URL(url).openStream());
-			Log.i("IMAGE","Saveing "+hashURL(url));
+			Log.i("FILEBANK","Saveing "+hashURL(url));
 			while(true){
 				count=input.read(buffer);
 				if(count<0)break;
@@ -65,17 +65,30 @@ public class ImageBank {
 			}
 			input.close();
 			fos.close();
-			Log.i("IMAGE","Saved "+hashURL(url)+" "+size+" bytes.");
+			Log.i("FILEBANK","Saved "+hashURL(url)+" "+size+" bytes.");
 		} catch (FileNotFoundException ex) {
-			Log.e("IMAGE", "Error saving image to cache", ex);
+			Log.e("FILEBANK", "Error saving image to cache", ex);
 		} catch (MalformedURLException ex) {
-			Log.e("IMAGE","Invalid url: "+url, ex);
+			Log.e("FILEBANK","Invalid url: "+url, ex);
 		} catch (IOException ex) {
-			Log.e("IMAGE","Error reading image", ex);
+			Log.e("FILEBANK","Error reading image", ex);
 		} catch (IndexOutOfBoundsException ex) {
-			Log.e("IMAGE", "(count, size) = "+count+","+size, ex);
+			Log.e("FILEBANK", "(count, size) = "+count+","+size, ex);
 		}
 	}//end saveImage
+	
+	public static InputStream openStream(String url){
+		try {
+			InputStream stream= new BufferedInputStream(
+							context.openFileInput(hashURL(url))
+					);
+			Log.i("FILEBANK","Cache hit on "+hashURL(url));
+			return stream;
+		} catch (FileNotFoundException ex){
+			saveFile(url);
+			return openStream(url);
+		}
+	}
 	
 	/**
 	 * Fetches the image given as a url string.
@@ -83,16 +96,9 @@ public class ImageBank {
 	 * @return An image as a Bitmap.
 	 */
 	public static Bitmap getImage(String url){
-		try {
-			Bitmap image = BitmapFactory.decodeStream(
-					new BufferedInputStream(
-							context.openFileInput(hashURL(url))
-					));
-			Log.i("IMAGE","Cache hit on "+hashURL(url));
-			return image;
-		} catch (FileNotFoundException ex){
-			saveImage(url);
-			return getImage(url);
-		}	
+		Bitmap image = BitmapFactory.decodeStream(
+				openStream(url));
+		Log.i("IMAGE","Cache hit on "+hashURL(url));
+		return image;
 	}//end getImage
 }//end ImageBank

@@ -1,6 +1,6 @@
 package org.omships.omships.parse;
 
-import org.omships.omships.ImageBank;
+import org.omships.omships.FileBank;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -28,7 +28,7 @@ public class FetchImage extends AsyncTask<String, Void, Bitmap>{
 	 */
 	@Override
 	protected Bitmap doInBackground(String...urls) {
-		return ImageBank.getImage(urls[0]);
+		return FileBank.getImage(urls[0]);
 	}//end doInBackground
 	
 	protected void onPostExecute(Bitmap result){

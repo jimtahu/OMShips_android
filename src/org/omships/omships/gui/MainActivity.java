@@ -1,6 +1,6 @@
 package org.omships.omships.gui;
  
-import org.omships.omships.ImageBank;
+import org.omships.omships.FileBank;
 import org.omships.omships.R;
 import org.omships.omships.Settings;
 
@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ImageBank.setContext(getApplicationContext());
+        FileBank.setContext(getApplicationContext());
         setContentView(R.layout.activity_main);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         
