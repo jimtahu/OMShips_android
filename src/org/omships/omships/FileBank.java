@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -57,6 +58,15 @@ public class FileBank {
 				item.delete();
 		}
 	}//end cleanOldFiles
+
+	/**
+	 * Removes files older than the default of 4 hours.
+	 */
+	public static void cleanOldFiles() {
+		GregorianCalendar yesterday = new GregorianCalendar();
+		yesterday.roll(GregorianCalendar.HOUR_OF_DAY,-4);
+		cleanOldFiles(yesterday.getTime());
+	}
 	
 	/**
 	 * Processes the url into something which will not have magic char.
@@ -127,4 +137,5 @@ public class FileBank {
 		Log.i("IMAGE","Cache hit on "+hashURL(url));
 		return image;
 	}//end getImage
+
 }//end ImageBank
