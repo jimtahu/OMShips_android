@@ -1,9 +1,8 @@
 package org.omships.omships.parse;
 
-import java.io.BufferedInputStream;
-import java.net.URL;
 import java.util.Scanner;
 
+import org.omships.omships.FileBank;
 import org.omships.omships.R;
 import org.omships.omships.Settings;
 
@@ -29,8 +28,7 @@ public class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 	protected LatLng doInBackground(String... urls) {
 		Double lat=0.0,lng=0.0;
 		try {
-			Scanner input=new Scanner(
-					new BufferedInputStream(new URL(urls[0]).openStream()));
+			Scanner input=new Scanner(FileBank.openStream(urls[0]));
 			input.useDelimiter(",");
 			//unix time
 			input.next();
@@ -41,6 +39,7 @@ public class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 			return new LatLng(lat, lng);
 		} catch (Exception ex) {
 			Log.e("LOCATION",ex.toString(),ex);
+			FileBank.invalidate(urls[0]);
 			return null;
 		}
 	}//end doInBackground
