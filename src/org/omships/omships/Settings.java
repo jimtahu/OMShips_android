@@ -1,7 +1,5 @@
 package org.omships.omships;
 
-import java.io.BufferedInputStream;
-import java.net.URL;
 import java.util.List;
 
 import org.omships.omships.datatypes.Ship;
@@ -22,8 +20,7 @@ public class Settings {
 		@Override
 		protected Integer doInBackground(String... urls) {
 			try {
-				SettingsReader reader=new SettingsReader(
-						new BufferedInputStream(new URL(urls[0]).openStream()));
+				SettingsReader reader=new SettingsReader(FileBank.openStream(urls[0]));
 				ships = reader.getItems();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -47,7 +44,7 @@ public class Settings {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//end try-catch
-			new FetchConfig().execute("http://danielrothfus.com/config.xml");
+			//new FetchConfig().execute("http://danielrothfus.com/config.xml");
 		}//end if
 	}//end loadConfig
 	
