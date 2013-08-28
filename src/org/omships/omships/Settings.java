@@ -39,7 +39,7 @@ public class Settings {
 	 * There is a default config.xml, and we load an updated version
 	 *  from the web when we get the chance. 
 	 */
-	public static void loadConfig(Resources r){
+	public synchronized static void loadConfig(Resources r){
 		if(ships==null){
 			SettingsReader reader = new SettingsReader(r.openRawResource(R.raw.config));
 			try {

@@ -30,7 +30,7 @@ public class FileBank {
 	 * (needed for access to cacheDir)
 	 * @param con
 	 */
-	public static void setContext(Context con){
+	public synchronized static void setContext(Context con){
 		context = con;
 	}
 		
@@ -42,7 +42,7 @@ public class FileBank {
 	 *  usages of the image/feed, but forces the item to be redownloaded
 	 *  the next time it is called for.
 	 */
-	public static void invalidate(String url){
+	public synchronized static void invalidate(String url){
 		Log.i("FILEBANK", "Invalidating "+hashURL(url));
 		new File(context.getCacheDir(), hashURL(url)).delete();
 	}//end invalidate
@@ -51,7 +51,7 @@ public class FileBank {
 	 * Removes files older than a given date.
 	 * @param old
 	 */
-	public static void cleanOldFiles(Date old){
+	public synchronized static void cleanOldFiles(Date old){
 		for(File item:context.getCacheDir().listFiles()){
 			Date last = new Date(item.lastModified());
 			if(last.before(old))
@@ -62,7 +62,7 @@ public class FileBank {
 	/**
 	 * Removes files older than the default of 4 hours.
 	 */
-	public static void cleanOldFiles() {
+	public synchronized static void cleanOldFiles() {
 		GregorianCalendar yesterday = new GregorianCalendar();
 		yesterday.roll(GregorianCalendar.HOUR_OF_DAY,-4);
 		cleanOldFiles(yesterday.getTime());
@@ -81,7 +81,7 @@ public class FileBank {
 	 * Saves a file to disk from the url.
 	 * @param url
 	 */
-	static void saveFile(String url){
+	synchronized static void saveFile(String url){
 		int count=1,size=0;
 		byte buffer[] = new byte[0x100];
 		try {
@@ -98,7 +98,7 @@ public class FileBank {
 			fos.close();
 			Log.i("FILEBANK","Saved "+hashURL(url)+" "+size+" bytes.");
 		} catch (FileNotFoundException ex) {
-			Log.e("FILEBANK", "Error saving image to cache", ex);
+			Log.e("FILEBANK", "Error saving file to cache", ex);
 		} catch (MalformedURLException ex) {
 			Log.e("FILEBANK","Invalid url: "+url, ex);
 		} catch (IOException ex) {
