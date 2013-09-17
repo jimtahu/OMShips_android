@@ -16,9 +16,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
  
 public class MainActivity extends FragmentActivity {
-	
+    MenuItem mapFlip;
+    SampleFragmentPagerAdapter adapter;
+    
 	/**
 	 * Called when the app is loading (in an atempt to preload some items).
 	 */
@@ -58,9 +62,25 @@ public class MainActivity extends FragmentActivity {
         	 GooglePlayServicesUtil.getErrorDialog(playServiceResults, this, 69).show();
         }
     	startPreload();
-    	viewPager.setAdapter(new SampleFragmentPagerAdapter(this.getResources(), getSupportFragmentManager()));
+    	adapter=new SampleFragmentPagerAdapter(this.getResources(), getSupportFragmentManager());
+    	viewPager.setAdapter(adapter);
         
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		this.mapFlip=menu.add(R.string.flip_map);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == mapFlip.getItemId())
+		{
+			adapter.flipMapType();
+		}
+		return super.onOptionsItemSelected(item);
+	}
     
     //code segment take from Squonk on stackoverflow at 
     //http://stackoverflow.com/questions/4238921/android-detect-whether-there-is-an-internet-connection-available

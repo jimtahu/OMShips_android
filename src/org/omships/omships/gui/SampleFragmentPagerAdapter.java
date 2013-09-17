@@ -14,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 	static final String ARG_PAGE = "ARG_PAGE";
 	FragmentManager fm;
 	Resources resources;
+	GoogleMap map;
 	
     public SampleFragmentPagerAdapter(Resources resources, FragmentManager fm) {
 		super(fm);
@@ -50,9 +52,21 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     
     public SupportMapFragment setupMap(){
     	SupportMapFragment fragment = new SupportMapFragment();
-    	new FetchLocation(fragment)
+    	new FetchLocation(this, fragment)
     		.execute(Settings.getShip().getLocation());
     	return fragment;
+    }
+    
+    public void setMap(GoogleMap map){
+    	this.map = map;
+    }
+    
+    public void flipMapType(){
+    	if(this.map==null)return;
+    	if(this.map.getMapType()==GoogleMap.MAP_TYPE_HYBRID)
+    		this.map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    	else
+    		this.map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
     
     public Fragment create(int page) {

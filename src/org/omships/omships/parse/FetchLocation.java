@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.omships.omships.FileBank;
 import org.omships.omships.R;
 import org.omships.omships.Settings;
+import org.omships.omships.gui.SampleFragmentPagerAdapter;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,8 +20,10 @@ import android.util.Log;
 
 public class FetchLocation extends AsyncTask<String,Integer,LatLng>{
 		private SupportMapFragment map;
+		private SampleFragmentPagerAdapter adapter;
 		
-	public FetchLocation(SupportMapFragment map) {
+	public FetchLocation(SampleFragmentPagerAdapter adapter, SupportMapFragment map) {
+		this.adapter=adapter;
 		this.map=map;
 	}
 	
@@ -62,6 +65,7 @@ public class FetchLocation extends AsyncTask<String,Integer,LatLng>{
         		CameraUpdateFactory.newCameraPosition(
         				CameraPosition.fromLatLngZoom(
         						pos,5.0f)));
+        adapter.setMap(daMap);
 	}//end onPostExecute
 	
 }//end class FetchLocation
